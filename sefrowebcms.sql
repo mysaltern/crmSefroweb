@@ -11,11 +11,30 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 14/04/2019 20:20:50
+ Date: 14/05/2019 16:13:01
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for about
+-- ----------------------------
+DROP TABLE IF EXISTS `about`;
+CREATE TABLE `about`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tell` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `tell2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `lat` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `lng` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of about
+-- ----------------------------
+INSERT INTO `about` VALUES (2, 'dfgdfg', 'dgdg', '', '35.74593135576459', '51.37545183563236');
 
 -- ----------------------------
 -- Table structure for auth_assignment
@@ -117,7 +136,7 @@ CREATE TABLE `filemanager_mediafile`  (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of filemanager_mediafile
@@ -127,6 +146,7 @@ INSERT INTO `filemanager_mediafile` VALUES (16, 'photo2017-12-0912-52-23.jpg', '
 INSERT INTO `filemanager_mediafile` VALUES (17, 'comingsoon.png', 'image/png', '/uploads2/2019/04/comingsoon.png', NULL, '14656', NULL, 'a:3:{s:5:\"small\";s:38:\"/uploads2/2019/04/comingsoon-small.png\";s:6:\"medium\";s:39:\"/uploads2/2019/04/comingsoon-medium.png\";s:5:\"large\";s:38:\"/uploads2/2019/04/comingsoon-large.png\";}', 1554830136, NULL);
 INSERT INTO `filemanager_mediafile` VALUES (18, 'img7495.jpg', 'image/jpeg', '/uploads/2019/04/img7495.jpg', NULL, '11965', NULL, 'a:3:{s:5:\"small\";s:34:\"/uploads/2019/04/img7495-small.jpg\";s:6:\"medium\";s:35:\"/uploads/2019/04/img7495-medium.jpg\";s:5:\"large\";s:34:\"/uploads/2019/04/img7495-large.jpg\";}', 1554830169, NULL);
 INSERT INTO `filemanager_mediafile` VALUES (19, 'a.jpg', 'image/jpeg', '/uploads/2019/04/a.jpg', NULL, '324760', NULL, 'a:3:{s:5:\"small\";s:28:\"/uploads/2019/04/a-small.jpg\";s:6:\"medium\";s:29:\"/uploads/2019/04/a-medium.jpg\";s:5:\"large\";s:28:\"/uploads/2019/04/a-large.jpg\";}', 1554833204, NULL);
+INSERT INTO `filemanager_mediafile` VALUES (20, 'lottery.png', 'image/png', '/uploads/2019/05/lottery.png', NULL, '418682', NULL, 'a:3:{s:5:\"small\";s:34:\"/uploads/2019/05/lottery-small.png\";s:6:\"medium\";s:35:\"/uploads/2019/05/lottery-medium.png\";s:5:\"large\";s:34:\"/uploads/2019/05/lottery-large.png\";}', 1557673570, NULL);
 
 -- ----------------------------
 -- Table structure for filemanager_mediafile_tag
@@ -165,6 +185,665 @@ CREATE TABLE `filemanager_tag`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Table structure for inv_productbasketdetails
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productbasketdetails`;
+CREATE TABLE `inv_productbasketdetails`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `basketID` int(11) DEFAULT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `basketID`(`basketID`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  CONSTRAINT `inv_productbasketdetails_ibfk_1` FOREIGN KEY (`basketID`) REFERENCES `inv_productbaskets` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productbaskets
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productbaskets`;
+CREATE TABLE `inv_productbaskets`  (
+  `id` int(11) NOT NULL,
+  `basketName` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `productMainID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productMainID`(`productMainID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productcategories
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productcategories`;
+CREATE TABLE `inv_productcategories`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `parentID` int(11) DEFAULT NULL,
+  `levelno` int(11) DEFAULT NULL,
+  `position` int(11) DEFAULT NULL,
+  `imageID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `imageID`(`imageID`) USING BTREE,
+  CONSTRAINT `inv_productcategories_ibfk_1` FOREIGN KEY (`imageID`) REFERENCES `glb_images` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productcategoryrel
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productcategoryrel`;
+CREATE TABLE `inv_productcategoryrel`  (
+  `id` int(11) NOT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `productCategoryID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  INDEX `productCategoryID`(`productCategoryID`) USING BTREE,
+  CONSTRAINT `inv_productcategoryrel_ibfk_2` FOREIGN KEY (`productCategoryID`) REFERENCES `inv_productcategories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productdiscountdetails
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productdiscountdetails`;
+CREATE TABLE `inv_productdiscountdetails`  (
+  `id` int(11) NOT NULL,
+  `ProductID` int(11) NOT NULL,
+  `fromCount` int(11) DEFAULT NULL,
+  `toCount` int(11) DEFAULT NULL,
+  `ProductDiscountID` int(11) NOT NULL,
+  `ProductPriceTypeID` int(11) DEFAULT NULL,
+  `CustomerTypeID` int(11) DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `discountPercent` double DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `CustomerTypeID`(`CustomerTypeID`) USING BTREE,
+  INDEX `ProductPriceTypeID`(`ProductPriceTypeID`) USING BTREE,
+  INDEX `ProductID`(`ProductID`) USING BTREE,
+  INDEX `ProductDiscountID`(`ProductDiscountID`) USING BTREE,
+  CONSTRAINT `inv_productdiscountdetails_ibfk_2` FOREIGN KEY (`ProductPriceTypeID`) REFERENCES `inv_productpricetypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_productdiscountdetails_ibfk_4` FOREIGN KEY (`ProductDiscountID`) REFERENCES `inv_productdiscounts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productdiscounts
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productdiscounts`;
+CREATE TABLE `inv_productdiscounts`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `execTime` datetime(3) DEFAULT NULL,
+  `expirationTime` datetime(3) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productdiscounts
+-- ----------------------------
+INSERT INTO `inv_productdiscounts` VALUES (1, '1', 'تخفیفات 1', '2017-01-01 00:00:00.000', '2018-01-01 00:00:00.000', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productdiscounts` VALUES (2, '2', 'تخفیفات 2', '2017-01-02 00:00:00.000', '2019-01-21 00:00:00.000', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productdiscounts` VALUES (3, '12', 'تخفیفات 3', '2017-01-02 00:00:00.000', '2019-01-02 00:00:00.000', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productlinks
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productlinks`;
+CREATE TABLE `inv_productlinks`  (
+  `id` int(11) NOT NULL,
+  `productLinkSharedID` int(11) DEFAULT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  INDEX `productLinkSharedID`(`productLinkSharedID`) USING BTREE,
+  CONSTRAINT `inv_productlinks_ibfk_2` FOREIGN KEY (`productLinkSharedID`) REFERENCES `inv_productlinkshared` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productlinkshared
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productlinkshared`;
+CREATE TABLE `inv_productlinkshared`  (
+  `id` int(11) NOT NULL,
+  `linkTypeID` int(11) DEFAULT NULL,
+  `linkSharedName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productlinkshared
+-- ----------------------------
+INSERT INTO `inv_productlinkshared` VALUES (1, 1, 'محصول جدید', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinkshared` VALUES (2, 1, 'محصول پر فروش', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinkshared` VALUES (3, 2, 'محصولات مرتبط 3', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinkshared` VALUES (4, 2, 'محصولات مرتبط 4', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinkshared` VALUES (5, 3, 'محصولات تکمیلی 5', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinkshared` VALUES (6, 3, 'محصولات تکمیلی 6', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinkshared` VALUES (7, 3, 'محصولات تکمیلی 7', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productlinktypes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productlinktypes`;
+CREATE TABLE `inv_productlinktypes`  (
+  `id` int(11) NOT NULL,
+  `linkTypeName` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productlinktypes
+-- ----------------------------
+INSERT INTO `inv_productlinktypes` VALUES (1, 'نمایش های محصول', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinktypes` VALUES (2, 'محصولات مرتبط', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productlinktypes` VALUES (3, 'محصولات تکمیلی', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productmanufacturers
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productmanufacturers`;
+CREATE TABLE `inv_productmanufacturers`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productmanufacturers
+-- ----------------------------
+INSERT INTO `inv_productmanufacturers` VALUES (1, '1', 'Abri Form', 1, 0, '2017-01-04 11:30:05.000', '2017-01-04 12:49:18.000', NULL, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (2, '2', 'Dermalex', 1, 0, '2017-01-04 11:30:54.000', NULL, NULL, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (3, '3', 'Pharmalife', 1, 0, '2017-01-04 11:31:10.000', NULL, NULL, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (4, '4', 'Atsez', 1, 0, '2017-01-04 11:32:25.000', NULL, NULL, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (5, '5', 'Agicor', 1, 0, '2017-01-04 11:32:39.000', NULL, NULL, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (6, '8', '21 سنتري', 1, 0, '2017-01-04 14:38:38.000', '2017-01-11 09:43:12.000', 2, 2);
+INSERT INTO `inv_productmanufacturers` VALUES (7, '10', 'Lenus Pharma', 1, 0, '2017-01-04 14:40:52.000', '2017-01-11 09:43:49.000', 2, 2);
+INSERT INTO `inv_productmanufacturers` VALUES (8, '12', 'Lorganique', 1, 0, '2017-01-11 09:44:31.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (9, '100', 'Med Trust', 1, 0, '2017-01-11 09:44:49.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (10, '101', 'NovelityLife', 1, 0, '2017-01-11 09:56:40.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (11, '103', 'Pharmalife', 1, 0, '2017-01-11 09:56:54.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (12, '110', 'Spring Leaf', 1, 0, '2017-01-11 09:57:17.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (13, '110', 'T-RQ', 1, 0, '2017-01-11 09:57:33.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (14, '120', 'آ.اِ.گ', 1, 0, '2017-01-11 09:57:59.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (15, '130', 'Apipharma', 1, 0, '2017-01-11 09:58:21.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (16, '140', 'Atsez', 1, 0, '2017-01-11 09:58:36.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (17, '111', 'Agicor', 1, 0, '2017-01-11 09:58:51.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (18, '121', 'Adapta', 1, 0, '2017-01-11 09:59:10.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (19, '145', 'Adidas', 1, 0, '2017-01-11 09:59:44.000', NULL, 2, NULL);
+INSERT INTO `inv_productmanufacturers` VALUES (20, '146', 'biopol', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productpacking
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productpacking`;
+CREATE TABLE `inv_productpacking`  (
+  `id` int(11) NOT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `productPackingLevel` int(11) DEFAULT NULL,
+  `productPackingTypeID` int(11) DEFAULT NULL,
+  `productPackingValue` int(11) DEFAULT NULL,
+  `productUnitID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  INDEX `productPackingTypeID`(`productPackingTypeID`) USING BTREE,
+  INDEX `productUnitID`(`productUnitID`) USING BTREE,
+  CONSTRAINT `inv_productpacking_ibfk_2` FOREIGN KEY (`productPackingTypeID`) REFERENCES `inv_productpackingtypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_productpacking_ibfk_3` FOREIGN KEY (`productUnitID`) REFERENCES `inv_productunits` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productpackingtypes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productpackingtypes`;
+CREATE TABLE `inv_productpackingtypes`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productpackingtypes
+-- ----------------------------
+INSERT INTO `inv_productpackingtypes` VALUES (2, '1', 'بسته', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productpackingtypes` VALUES (3, '2', 'جعبه', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productpackingtypes` VALUES (4, '3', 'گالن', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productpackingtypes` VALUES (5, '4', 'تیوپ', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productpricedetails
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productpricedetails`;
+CREATE TABLE `inv_productpricedetails`  (
+  `id` int(11) NOT NULL,
+  `ProductID` int(11) NOT NULL,
+  `ProductPriceID` int(11) NOT NULL,
+  `ProductPriceTypeID` int(11) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `ProductPriceTypeID`(`ProductPriceTypeID`) USING BTREE,
+  INDEX `ProductID`(`ProductID`) USING BTREE,
+  INDEX `ProductPriceID`(`ProductPriceID`) USING BTREE,
+  CONSTRAINT `inv_productpricedetails_ibfk_1` FOREIGN KEY (`ProductPriceTypeID`) REFERENCES `inv_productpricetypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_productpricedetails_ibfk_3` FOREIGN KEY (`ProductPriceID`) REFERENCES `inv_productprices` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productprices
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productprices`;
+CREATE TABLE `inv_productprices`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `execTime` datetime(3) DEFAULT NULL,
+  `expirationTime` datetime(3) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productprices
+-- ----------------------------
+INSERT INTO `inv_productprices` VALUES (1, '1', 'بخشنامه شماره 1', '2017-01-02 00:00:00.000', '2020-01-01 00:00:00.000', 1, 0, '2017-01-01 00:00:00.000', '2017-01-01 00:00:00.000', 1, 1);
+INSERT INTO `inv_productprices` VALUES (2, '2', 'بخشنامه شماره 2', '2016-01-01 00:00:00.000', '2019-01-01 00:00:00.000', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productprices` VALUES (3, '3', 'بخشنامه شماره3', '2017-02-01 00:00:00.000', '2019-01-01 00:00:00.000', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productprices` VALUES (4, '4', 'بخشنامه شماره 4', '2017-01-01 00:00:00.000', '2020-01-01 00:00:00.000', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productpricetypes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productpricetypes`;
+CREATE TABLE `inv_productpricetypes`  (
+  `id` int(11) NOT NULL,
+  `code` int(11) DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productpricetypes
+-- ----------------------------
+INSERT INTO `inv_productpricetypes` VALUES (1, 1, 'قیمت خرید', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productpricetypes` VALUES (2, 2, 'قیمت فروش', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productpricetypes` VALUES (3, 3, 'قیمت مصرف کننده', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productprizedetails
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productprizedetails`;
+CREATE TABLE `inv_productprizedetails`  (
+  `id` int(11) NOT NULL,
+  `productID` int(11) NOT NULL,
+  `customerTypeID` int(11) DEFAULT NULL,
+  `productPrizeID` int(11) NOT NULL,
+  `fromCount` int(11) DEFAULT NULL,
+  `toCount` int(11) DEFAULT NULL,
+  `per` int(11) DEFAULT NULL,
+  `prizeCount` int(11) DEFAULT NULL,
+  `prizeProductID` int(11) NOT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `customerTypeID`(`customerTypeID`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  INDEX `productPrizeID`(`productPrizeID`) USING BTREE,
+  CONSTRAINT `inv_productprizedetails_ibfk_1` FOREIGN KEY (`customerTypeID`) REFERENCES `sle_customertypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_productprizedetails_ibfk_3` FOREIGN KEY (`productPrizeID`) REFERENCES `inv_productprizes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productprizes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productprizes`;
+CREATE TABLE `inv_productprizes`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `execTime` datetime(3) DEFAULT NULL,
+  `expirationTime` datetime(3) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productprizes
+-- ----------------------------
+INSERT INTO `inv_productprizes` VALUES (9, '', '2342', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_products
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_products`;
+CREATE TABLE `inv_products`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `invProductManufacturerID` int(11) DEFAULT NULL,
+  `invProductSupplierID` int(11) DEFAULT NULL,
+  `invProductSharedCodeID` bigint(20) DEFAULT NULL,
+  `invProductTypeID` int(11) DEFAULT NULL,
+  `invProductShapeID` int(11) DEFAULT NULL,
+  `invProductCategoryID` int(11) DEFAULT NULL,
+  `summary` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `invProductTypeID`(`invProductTypeID`) USING BTREE,
+  INDEX `invProductCategoryID`(`invProductCategoryID`) USING BTREE,
+  INDEX `invProductManufacturerID`(`invProductManufacturerID`) USING BTREE,
+  INDEX `invProductSupplierID`(`invProductSupplierID`) USING BTREE,
+  INDEX `invProductSharedCodeID`(`invProductSharedCodeID`) USING BTREE,
+  INDEX `invProductShapeID`(`invProductShapeID`) USING BTREE,
+  CONSTRAINT `inv_products_ibfk_1` FOREIGN KEY (`invProductTypeID`) REFERENCES `inv_producttypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_products_ibfk_2` FOREIGN KEY (`invProductCategoryID`) REFERENCES `inv_productcategories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_products_ibfk_3` FOREIGN KEY (`invProductManufacturerID`) REFERENCES `inv_productmanufacturers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_products_ibfk_4` FOREIGN KEY (`invProductSupplierID`) REFERENCES `inv_productsuppliers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_products_ibfk_5` FOREIGN KEY (`invProductSharedCodeID`) REFERENCES `inv_productsharedcodes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `inv_products_ibfk_6` FOREIGN KEY (`invProductShapeID`) REFERENCES `inv_productshapes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productshapes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productshapes`;
+CREATE TABLE `inv_productshapes`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productshapes
+-- ----------------------------
+INSERT INTO `inv_productshapes` VALUES (2, NULL, 'قرص', 1, 0, '2017-01-04 11:33:22.000', NULL, NULL, NULL);
+INSERT INTO `inv_productshapes` VALUES (3, NULL, 'آمپول', 1, 0, '2017-01-04 11:33:30.000', NULL, NULL, NULL);
+INSERT INTO `inv_productshapes` VALUES (4, NULL, 'پماد', 1, 0, '2017-01-04 11:33:38.000', NULL, NULL, NULL);
+INSERT INTO `inv_productshapes` VALUES (5, NULL, 'کرم', 1, 0, '2017-01-04 15:00:50.000', NULL, 2, NULL);
+INSERT INTO `inv_productshapes` VALUES (6, NULL, 'لوازم کودک', 1, 0, '2017-01-11 10:40:10.000', NULL, 2, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productsharedcodes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productsharedcodes`;
+CREATE TABLE `inv_productsharedcodes`  (
+  `id` bigint(20) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  `code_shared` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productspecifications
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productspecifications`;
+CREATE TABLE `inv_productspecifications`  (
+  `id` int(11) NOT NULL,
+  `productID` int(11) NOT NULL,
+  `productSpecificationTypeID` int(11) DEFAULT NULL,
+  `productSpecificationValueInt` int(11) DEFAULT NULL,
+  `productSpecificationValueDecimal` decimal(18, 0) DEFAULT NULL,
+  `productSpecificationValueBit` tinyint(4) DEFAULT NULL,
+  `productSpecificationSelectionID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productSpecificationTypeID`(`productSpecificationTypeID`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  CONSTRAINT `inv_productspecifications_ibfk_1` FOREIGN KEY (`productSpecificationTypeID`) REFERENCES `inv_productspecificationtypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for inv_productspecificationselections
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productspecificationselections`;
+CREATE TABLE `inv_productspecificationselections`  (
+  `id` int(11) NOT NULL,
+  `selectionName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `productSpecificationTypeID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productSpecificationTypeID`(`productSpecificationTypeID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productspecificationselections
+-- ----------------------------
+INSERT INTO `inv_productspecificationselections` VALUES (29, 'قرمز', 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productspecificationselections` VALUES (30, 'زرد', 1, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productspecificationtypes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productspecificationtypes`;
+CREATE TABLE `inv_productspecificationtypes`  (
+  `id` int(11) NOT NULL,
+  `productSpecificationName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `productUnitID` int(11) DEFAULT NULL,
+  `isInt` tinyint(4) DEFAULT NULL,
+  `isDecimal` tinyint(4) DEFAULT NULL,
+  `isSelection` tinyint(4) DEFAULT NULL,
+  `isBit` tinyint(4) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `productUnitID`(`productUnitID`) USING BTREE,
+  CONSTRAINT `inv_productspecificationtypes_ibfk_1` FOREIGN KEY (`productUnitID`) REFERENCES `inv_productunits` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productspecificationtypes
+-- ----------------------------
+INSERT INTO `inv_productspecificationtypes` VALUES (1, 'رنگ', NULL, NULL, NULL, 1, NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productspecificationtypes` VALUES (2, 'وزن', 1, 1, NULL, 1, NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productspecificationtypes` VALUES (3, 'محل مصرف', NULL, NULL, NULL, 1, NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productspecificationtypes` VALUES (4, 'سن مصرف', NULL, NULL, NULL, 1, NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productspecificationtypes` VALUES (5, 'نوع محفظه', NULL, NULL, NULL, 1, NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productspecificationtypes` VALUES (6, 'جنسیت مصرف', NULL, NULL, NULL, 1, NULL, 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productsuppliers
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productsuppliers`;
+CREATE TABLE `inv_productsuppliers`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productsuppliers
+-- ----------------------------
+INSERT INTO `inv_productsuppliers` VALUES (2, NULL, 'پورا پخش', 1, 0, '2017-01-04 11:20:57.000', NULL, NULL, NULL);
+INSERT INTO `inv_productsuppliers` VALUES (3, NULL, 'داروخانه پورا', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_producttypes
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_producttypes`;
+CREATE TABLE `inv_producttypes`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_producttypes
+-- ----------------------------
+INSERT INTO `inv_producttypes` VALUES (16, NULL, 'وارداتی', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_producttypes` VALUES (17, NULL, 'تولید داخل', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for inv_productunits
+-- ----------------------------
+DROP TABLE IF EXISTS `inv_productunits`;
+CREATE TABLE `inv_productunits`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of inv_productunits
+-- ----------------------------
+INSERT INTO `inv_productunits` VALUES (1, '1', 'گرم', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productunits` VALUES (2, '2', 'میلی متر', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productunits` VALUES (3, '3', 'کیلوگرم', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productunits` VALUES (4, '4', 'سانتی متر', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `inv_productunits` VALUES (5, '5', 'عدد', 1, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
 -- Table structure for logvisitor
 -- ----------------------------
 DROP TABLE IF EXISTS `logvisitor`;
@@ -188,7 +867,7 @@ CREATE TABLE `logvisitor`  (
   INDEX `idx_ip`(`ip`) USING BTREE,
   INDEX `idx_time`(`time`) USING BTREE,
   INDEX `idx_uri`(`uri`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 440 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 632 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of logvisitor
@@ -632,6 +1311,198 @@ INSERT INTO `logvisitor` VALUES (436, '::1', 1555060125, 'Fri, 12 Apr 19 11:08:4
 INSERT INTO `logvisitor` VALUES (437, '::1', 1555060146, 'Fri, 12 Apr 19 11:09:06 +0200', '/cmsSefroweb/cmsSefroweb/backend/web/index.php/user/admin/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
 INSERT INTO `logvisitor` VALUES (438, '::1', 1555060148, 'Fri, 12 Apr 19 11:09:08 +0200', '/cmsSefroweb/cmsSefroweb/backend/web/index.php/user/admin/update?id=1', '{\"id\":\"1\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
 INSERT INTO `logvisitor` VALUES (439, '::1', 1555060178, 'Fri, 12 Apr 19 11:09:38 +0200', '/cmsSefroweb/cmsSefroweb/backend/web/index.php/logvisitor', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (440, '::1', 1555259872, 'Sun, 14 Apr 19 18:37:52 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (441, '::1', 1555260538, 'Sun, 14 Apr 19 18:48:58 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (442, '::1', 1555260538, 'Sun, 14 Apr 19 18:48:58 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/acticle/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (443, '::1', 1555260540, 'Sun, 14 Apr 19 18:49:00 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/comment/manage/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (444, '::1', 1555260557, 'Sun, 14 Apr 19 18:49:17 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (445, '::1', 1555260740, 'Sun, 14 Apr 19 18:52:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (446, '::1', 1555260797, 'Sun, 14 Apr 19 18:53:17 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (447, '::1', 1555261032, 'Sun, 14 Apr 19 18:57:12 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (448, '::1', 1555261084, 'Sun, 14 Apr 19 18:58:04 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (449, '::1', 1555261273, 'Sun, 14 Apr 19 19:01:13 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (450, '::1', 1555261333, 'Sun, 14 Apr 19 19:02:13 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (451, '::1', 1555261349, 'Sun, 14 Apr 19 19:02:29 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (452, '::1', 1555261391, 'Sun, 14 Apr 19 19:03:11 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (453, '::1', 1555261395, 'Sun, 14 Apr 19 19:03:15 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (454, '::1', 1555261420, 'Sun, 14 Apr 19 19:03:40 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (455, '::1', 1555261478, 'Sun, 14 Apr 19 19:04:38 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (456, '::1', 1555261575, 'Sun, 14 Apr 19 19:06:15 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (457, '::1', 1555261609, 'Sun, 14 Apr 19 19:06:49 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (458, '::1', 1555261615, 'Sun, 14 Apr 19 19:06:55 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610214', '{\"_\":\"1555261610214\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (459, '::1', 1555261658, 'Sun, 14 Apr 19 19:07:38 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610215', '{\"_\":\"1555261610215\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (460, '::1', 1555261692, 'Sun, 14 Apr 19 19:08:12 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610216', '{\"_\":\"1555261610216\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (461, '::1', 1555261742, 'Sun, 14 Apr 19 19:09:02 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610217', '{\"_\":\"1555261610217\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (462, '::1', 1555261788, 'Sun, 14 Apr 19 19:09:48 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610218', '{\"_\":\"1555261610218\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (463, '::1', 1555261887, 'Sun, 14 Apr 19 19:11:27 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610219', '{\"_\":\"1555261610219\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (464, '::1', 1555262065, 'Sun, 14 Apr 19 19:14:25 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610220', '{\"_\":\"1555261610220\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (465, '::1', 1555262117, 'Sun, 14 Apr 19 19:15:17 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610221', '{\"_\":\"1555261610221\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (466, '::1', 1555262148, 'Sun, 14 Apr 19 19:15:48 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610222', '{\"_\":\"1555261610222\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (467, '::1', 1555262218, 'Sun, 14 Apr 19 19:16:58 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610223', '{\"_\":\"1555261610223\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (468, '::1', 1555262286, 'Sun, 14 Apr 19 19:18:06 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555261610224', '{\"_\":\"1555261610224\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (469, '::1', 1555262334, 'Sun, 14 Apr 19 19:18:54 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (470, '::1', 1555262383, 'Sun, 14 Apr 19 19:19:43 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (471, '::1', 1555262396, 'Sun, 14 Apr 19 19:19:56 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (472, '::1', 1555262536, 'Sun, 14 Apr 19 19:22:16 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (473, '::1', 1555262629, 'Sun, 14 Apr 19 19:23:49 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (474, '::1', 1555262679, 'Sun, 14 Apr 19 19:24:39 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (475, '::1', 1555262882, 'Sun, 14 Apr 19 19:28:02 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (476, '::1', 1555262930, 'Sun, 14 Apr 19 19:28:50 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '{\"_csrf-backend\":\"VfZjynPxDA-QPomLV6BH9hXYIzkEQPaJgcHydc5IOtQCkxWeOKFJSvhq89EhlDCDU6toUVMWvMb3g7AipSpsmA==\",\"InvProducts\":{\"code\":\"123\",\"name\":\"\",\"invProductManufacturerID\":\"1\",\"invProductSupplierID\":\"2\",\"invProductTypeID\":\"16\",\"invProductShapeID\":\"2\",\"invProductCategoryID\":\"4\",\"summary\":\"\",\"description\":\"\",\"file\":\"\",\"active\":\"0\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (477, '::1', 1555262930, 'Sun, 14 Apr 19 19:28:50 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/view', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (478, '::1', 1555262935, 'Sun, 14 Apr 19 19:28:55 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (479, '::1', 1555262939, 'Sun, 14 Apr 19 19:28:59 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (480, '::1', 1555262942, 'Sun, 14 Apr 19 19:29:02 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555262940304', '{\"_\":\"1555262940304\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (481, '::1', 1555262948, 'Sun, 14 Apr 19 19:29:08 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555262940304', '{\"_\":\"1555262940304\"}', '{\"_csrf-backend\":\"fKkeKlOY5hzi87q1I5kHMb2ofnv26io8N28UvDQDiXgrzGh-GMijWYqnwO9VrXBE-9s1E6G8YHNBLVbrX2HfNA==\",\"InvProducts\":{\"code\":\"123\",\"name\":\"\",\"invProductManufacturerID\":\"1\",\"invProductSupplierID\":\"2\",\"invProductTypeID\":\"16\",\"invProductShapeID\":\"2\",\"invProductCategoryID\":\"4\",\"summary\":\"\",\"description\":\"\",\"file\":\"\",\"active\":\"0\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (482, '::1', 1555263870, 'Sun, 14 Apr 19 19:44:30 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555262940305', '{\"_\":\"1555262940305\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (483, '::1', 1555263877, 'Sun, 14 Apr 19 19:44:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1555262940305', '{\"_\":\"1555262940305\"}', '{\"_csrf-backend\":\"zGUsH6i3RhSZIXquHSgOlmuA1ppiOb0jw4bmqVy4OISbAFpL4-cDUfF1APRrHHnjLfOd8jVv92y1xKT-N9puyA==\",\"InvProducts\":{\"code\":\"3242\",\"name\":\"\",\"invProductManufacturerID\":\"1\",\"invProductSupplierID\":\"2\",\"invProductTypeID\":\"16\",\"invProductShapeID\":\"2\",\"invProductCategoryID\":\"4\",\"summary\":\"\",\"description\":\"\",\"file\":\"\",\"active\":\"0\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (484, '::1', 1555263877, 'Sun, 14 Apr 19 19:44:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products?_pjax=%23crud-datatable-pjax', '{\"_pjax\":\"#crud-datatable-pjax\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (485, '::1', 1555263885, 'Sun, 14 Apr 19 19:44:45 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/delete/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (486, '::1', 1556302788, 'Fri, 26 Apr 19 20:19:48 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (487, '::1', 1556302790, 'Fri, 26 Apr 19 20:19:50 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (488, '::1', 1556302800, 'Fri, 26 Apr 19 20:20:00 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"BqfQbyFUCSiILk1mGAHXh1hfcmdBIvXql7O7s7HZEh00xIMbEzdGettaG1RRNuO0ETU9BAVmu43C6tz9geFncA==\",\"login-form\":{\"login\":\"admin\",\"password\":\"momibs450\",\"rememberMe\":\"0\"},\"ajax\":\"login-form\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (489, '::1', 1556302805, 'Fri, 26 Apr 19 20:20:05 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"BqfQbyFUCSiILk1mGAHXh1hfcmdBIvXql7O7s7HZEh00xIMbEzdGettaG1RRNuO0ETU9BAVmu43C6tz9geFncA==\",\"login-form\":{\"login\":\"admin\",\"password\":\"123456\",\"rememberMe\":\"0\"},\"ajax\":\"login-form\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (490, '::1', 1556302806, 'Fri, 26 Apr 19 20:20:06 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"BqfQbyFUCSiILk1mGAHXh1hfcmdBIvXql7O7s7HZEh00xIMbEzdGettaG1RRNuO0ETU9BAVmu43C6tz9geFncA==\",\"login-form\":{\"login\":\"admin\",\"password\":\"123456\",\"rememberMe\":\"0\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (491, '::1', 1556302807, 'Fri, 26 Apr 19 20:20:07 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (492, '::1', 1557670884, 'Sun, 12 May 19 16:21:24 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (493, '::1', 1557670886, 'Sun, 12 May 19 16:21:26 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (494, '::1', 1557670909, 'Sun, 12 May 19 16:21:49 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"W5qInfS1I_NRt_8ZLJMK0rrQC05o4ex4aI1jH1ytitw0wMrehdRJ3hmFmC4epE-Yy6ZyNi6QjzUQxFNAEu__rA==\",\"login-form\":{\"login\":\"admin\",\"password\":\"123456\",\"rememberMe\":\"0\"},\"ajax\":\"login-form\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (495, '::1', 1557670910, 'Sun, 12 May 19 16:21:50 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"W5qInfS1I_NRt_8ZLJMK0rrQC05o4ex4aI1jH1ytitw0wMrehdRJ3hmFmC4epE-Yy6ZyNi6QjzUQxFNAEu__rA==\",\"login-form\":{\"login\":\"admin\",\"password\":\"123456\",\"rememberMe\":\"0\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (496, '::1', 1557670911, 'Sun, 12 May 19 16:21:51 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (497, '::1', 1557673510, 'Sun, 12 May 19 17:05:10 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/comment/manage/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (498, '::1', 1557673520, 'Sun, 12 May 19 17:05:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (499, '::1', 1557673522, 'Sun, 12 May 19 17:05:22 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=7', '{\"id\":\"7\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (500, '::1', 1557673522, 'Sun, 12 May 19 17:05:22 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=5ca34ccf06d55.jpg', '{\"id\":\"5ca34ccf06d55.jpg\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (501, '::1', 1557673525, 'Sun, 12 May 19 17:05:25 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (502, '::1', 1557673528, 'Sun, 12 May 19 17:05:28 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (503, '::1', 1557673532, 'Sun, 12 May 19 17:05:32 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/filemanager', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (504, '::1', 1557673543, 'Sun, 12 May 19 17:05:43 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/uploadmanager', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (505, '::1', 1557673569, 'Sun, 12 May 19 17:06:09 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/upload', '[]', '{\"tagIds\":\"undefined\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (506, '::1', 1557673575, 'Sun, 12 May 19 17:06:15 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/filemanager', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (507, '::1', 1557673580, 'Sun, 12 May 19 17:06:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/default/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (508, '::1', 1557673583, 'Sun, 12 May 19 17:06:23 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (509, '::1', 1557673586, 'Sun, 12 May 19 17:06:26 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager/file/filemanager', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (510, '::1', 1557673711, 'Sun, 12 May 19 17:08:31 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/product', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (511, '::1', 1557673720, 'Sun, 12 May 19 17:08:40 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/product/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (512, '::1', 1557673733, 'Sun, 12 May 19 17:08:53 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (513, '::1', 1557673737, 'Sun, 12 May 19 17:08:57 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/products/create?_=1557673734882', '{\"_\":\"1557673734882\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (514, '::1', 1557675806, 'Sun, 12 May 19 17:43:26 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (515, '::1', 1557675876, 'Sun, 12 May 19 17:44:36 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (516, '::1', 1557675881, 'Sun, 12 May 19 17:44:41 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (517, '::1', 1557675885, 'Sun, 12 May 19 17:44:45 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=5ca34ccf06d55.jpg', '{\"id\":\"5ca34ccf06d55.jpg\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (518, '::1', 1557675885, 'Sun, 12 May 19 17:44:45 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=7', '{\"id\":\"7\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (519, '::1', 1557675892, 'Sun, 12 May 19 17:44:52 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/location/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (520, '::1', 1557675901, 'Sun, 12 May 19 17:45:01 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (521, '::1', 1557675918, 'Sun, 12 May 19 17:45:18 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (522, '::1', 1557675937, 'Sun, 12 May 19 17:45:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (523, '::1', 1557681038, 'Sun, 12 May 19 19:10:38 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (524, '::1', 1557681053, 'Sun, 12 May 19 19:10:53 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (525, '::1', 1557681073, 'Sun, 12 May 19 19:11:13 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (526, '::1', 1557681084, 'Sun, 12 May 19 19:11:24 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (527, '::1', 1557681091, 'Sun, 12 May 19 19:11:31 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (528, '::1', 1557681128, 'Sun, 12 May 19 19:12:08 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (529, '::1', 1557681269, 'Sun, 12 May 19 19:14:29 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (530, '::1', 1557681454, 'Sun, 12 May 19 19:17:34 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (531, '::1', 1557681513, 'Sun, 12 May 19 19:18:33 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (532, '::1', 1557681550, 'Sun, 12 May 19 19:19:10 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (533, '::1', 1557681565, 'Sun, 12 May 19 19:19:25 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (534, '::1', 1557681963, 'Sun, 12 May 19 19:26:03 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (535, '::1', 1557681967, 'Sun, 12 May 19 19:26:07 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii/model', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (536, '::1', 1557681980, 'Sun, 12 May 19 19:26:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii/model', '[]', '{\"_csrf-backend\":\"qcKRso-rwF3tTwDgAavpljPIQ7N_xrkBVZTcz1zxIkrDiMnF-tmTOac8TZNQnaDGcYURiiCtwWICubq5JIBrDw==\",\"Generator\":{\"tableName\":\"about\",\"modelClass\":\"About\",\"standardizeCapitals\":\"0\",\"singularize\":\"0\",\"ns\":\"common\\\\models\",\"baseClass\":\"yii\\\\db\\\\ActiveRecord\",\"db\":\"db\",\"useTablePrefix\":\"0\",\"generateRelations\":\"all\",\"generateRelationsFromCurrentSchema\":\"1\",\"generateLabelsFromComments\":\"0\",\"generateQuery\":\"1\",\"queryNs\":\"common\\\\models\",\"queryClass\":\"AboutQuery\",\"queryBaseClass\":\"yii\\\\db\\\\ActiveQuery\",\"enableI18N\":\"0\",\"messageCategory\":\"app\",\"useSchemaName\":\"1\",\"template\":\"default\"},\"preview\":\"\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (537, '::1', 1557681987, 'Sun, 12 May 19 19:26:27 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii/model', '[]', '{\"_csrf-backend\":\"SUwgjY5qhh75V2g65MiQdkxhoeAsmfD1t5lbgsiHQ3cjBnj6-xjVerMkJUm1_tkmDizz2XPyiJbgtD30sPYKMg==\",\"Generator\":{\"tableName\":\"about\",\"modelClass\":\"About\",\"standardizeCapitals\":\"0\",\"singularize\":\"0\",\"ns\":\"common\\\\models\",\"baseClass\":\"yii\\\\db\\\\ActiveRecord\",\"db\":\"db\",\"useTablePrefix\":\"0\",\"generateRelations\":\"all\",\"generateRelationsFromCurrentSchema\":\"1\",\"generateLabelsFromComments\":\"0\",\"generateQuery\":\"1\",\"queryNs\":\"common\\\\models\",\"queryClass\":\"AboutQuery\",\"queryBaseClass\":\"yii\\\\db\\\\ActiveQuery\",\"enableI18N\":\"0\",\"messageCategory\":\"app\",\"useSchemaName\":\"1\",\"template\":\"default\"},\"answers\":{\"ef8b8353fb7d2c9114032a702ddef3bb\":\"1\",\"270201040b800648a86c569e2f3afd1f\":\"1\"},\"generate\":\"\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (538, '::1', 1557681995, 'Sun, 12 May 19 19:26:35 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii/crud', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (539, '::1', 1557682066, 'Sun, 12 May 19 19:27:46 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii/crud', '[]', '{\"_csrf-backend\":\"OJnXb393HLmSvOfmo9_RcHHvzJdt1-MW1pOoz00mLxtS048YCgVP3djPqpXy6ZggM6KerjK8m3WBvs65NVdmXg==\",\"Generator\":{\"modelClass\":\"common\\\\models\\\\About\",\"searchModelClass\":\"common\\\\models\\\\AboutSearch\",\"controllerClass\":\"backend\\\\controllers\\\\AboutController\",\"viewPath\":\"@backend\\/views\\/about\",\"baseControllerClass\":\"yii\\\\web\\\\Controller\",\"indexWidgetType\":\"grid\",\"enableI18N\":\"1\",\"enablePjax\":\"0\",\"messageCategory\":\"app\",\"template\":\"default\"},\"preview\":\"\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (540, '::1', 1557682082, 'Sun, 12 May 19 19:28:02 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/gii/crud', '[]', '{\"_csrf-backend\":\"xAPTu3ZjRxDlFNW621bcduSCHStgh9mkqcSTQ37s4giuSYvMAxEUdK9nmMmKYJUmps9PEj_socf-6fU1Bp2rTQ==\",\"Generator\":{\"modelClass\":\"common\\\\models\\\\About\",\"searchModelClass\":\"common\\\\models\\\\AboutSearch\",\"controllerClass\":\"backend\\\\controllers\\\\AboutController\",\"viewPath\":\"@backend\\/views\\/about\",\"baseControllerClass\":\"yii\\\\web\\\\Controller\",\"indexWidgetType\":\"grid\",\"enableI18N\":\"1\",\"enablePjax\":\"0\",\"messageCategory\":\"app\",\"template\":\"default\"},\"answers\":{\"071b45b46730f7475cd2f8ddc514f0db\":\"1\",\"23de8d12851509115b7c3c3064dbdaa8\":\"1\",\"4daea847e9eaaf436fe14153ee1fef3a\":\"1\",\"a5050a38e880bb99be201badffb932a6\":\"1\",\"87f93d248ad1ddc72e206a7d79306fe2\":\"1\",\"39c215568f1c584f7606da1fba12e499\":\"1\",\"7b2e69858c19d9ca039c23485fb63854\":\"1\",\"6a0408748163a73fd5527ae37101c714\":\"1\"},\"generate\":\"\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (541, '::1', 1557682105, 'Sun, 12 May 19 19:28:25 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (542, '::1', 1557682122, 'Sun, 12 May 19 19:28:42 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (543, '::1', 1557682135, 'Sun, 12 May 19 19:28:55 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/create', '[]', '{\"_csrf-backend\":\"Im5ZwpUdqU7fS_cGAfHhuWUO7-EsdXsT7U81bc2-jy1IJAG14G_6KpU4unVQx6jpJ0O92HMeA3C6YlMbtc_GaA==\",\"About\":{\"tell\":\"wer\",\"tell2\":\"\",\"address\":\"\",\"lat\":\"\",\"lng\":\"\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (544, '::1', 1557682135, 'Sun, 12 May 19 19:28:55 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (545, '::1', 1557682138, 'Sun, 12 May 19 19:28:58 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (546, '::1', 1557682183, 'Sun, 12 May 19 19:29:43 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (547, '::1', 1557682294, 'Sun, 12 May 19 19:31:34 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (548, '::1', 1557682305, 'Sun, 12 May 19 19:31:45 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (549, '::1', 1557682339, 'Sun, 12 May 19 19:32:19 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (550, '::1', 1557682371, 'Sun, 12 May 19 19:32:51 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '{\"_csrf-backend\":\"Tin2EFXdw7KEpfPNDK3KoVvjZQsezJ_3A4Rlhj4YemkkY65nIK-Q1s7Wvr5dm4PxGa43MkGn55RUqQPwRmkzLA==\",\"About\":{\"tell\":\"09336086658\",\"tell2\":\"09124941324\",\"address\":\"tehran - kh asdasdasd asd adas-da sdas as dasda d asdad a\",\"lat\":\"35.74593135576459\",\"lng\":\"51.37545183563236\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (551, '::1', 1557682371, 'Sun, 12 May 19 19:32:51 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (552, '::1', 1557682381, 'Sun, 12 May 19 19:33:01 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (553, '::1', 1557682531, 'Sun, 12 May 19 19:35:31 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update/1', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (554, '::1', 1557682532, 'Sun, 12 May 19 19:35:32 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (555, '::1', 1557682614, 'Sun, 12 May 19 19:36:54 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (556, '::1', 1557682633, 'Sun, 12 May 19 19:37:13 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (557, '::1', 1557682645, 'Sun, 12 May 19 19:37:25 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (558, '::1', 1557682670, 'Sun, 12 May 19 19:37:50 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (559, '::1', 1557682714, 'Sun, 12 May 19 19:38:34 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (560, '::1', 1557682739, 'Sun, 12 May 19 19:38:59 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (561, '::1', 1557682758, 'Sun, 12 May 19 19:39:18 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (562, '::1', 1557682758, 'Sun, 12 May 19 19:39:18 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (563, '::1', 1557682782, 'Sun, 12 May 19 19:39:42 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (564, '::1', 1557683009, 'Sun, 12 May 19 19:43:29 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/create', '[]', '{\"_csrf-backend\":\"bOkYNEC4QP8duAKs7XLLoEFpgCfGKIPPwZcttzLRzc8Go0BDNcoTm1fLT9-8RILwAyTSHplD-6yWukvBSqCEig==\",\"About\":{\"tell\":\"dfgdfg\",\"tell2\":\"dgdg\",\"address\":\"\",\"lat\":\"35.74593135576459\",\"lng\":\"51.37545183563236\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (565, '::1', 1557683010, 'Sun, 12 May 19 19:43:30 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (566, '::1', 1557684924, 'Sun, 12 May 19 20:15:24 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (567, '::1', 1557684927, 'Sun, 12 May 19 20:15:27 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=5ca34ccf06d55.jpg', '{\"id\":\"5ca34ccf06d55.jpg\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (568, '::1', 1557684927, 'Sun, 12 May 19 20:15:27 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=7', '{\"id\":\"7\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (569, '::1', 1557684935, 'Sun, 12 May 19 20:15:35 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (570, '::1', 1557684953, 'Sun, 12 May 19 20:15:53 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (571, '::1', 1557685230, 'Sun, 12 May 19 20:20:30 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (572, '::1', 1557685265, 'Sun, 12 May 19 20:21:05 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (573, '::1', 1557685274, 'Sun, 12 May 19 20:21:14 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (574, '::1', 1557685306, 'Sun, 12 May 19 20:21:46 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (575, '::1', 1557685317, 'Sun, 12 May 19 20:21:57 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (576, '::1', 1557685344, 'Sun, 12 May 19 20:22:24 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (577, '::1', 1557685390, 'Sun, 12 May 19 20:23:10 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (578, '::1', 1557685615, 'Sun, 12 May 19 20:26:55 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (579, '::1', 1557685626, 'Sun, 12 May 19 20:27:06 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (580, '::1', 1557685681, 'Sun, 12 May 19 20:28:01 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (581, '::1', 1557685740, 'Sun, 12 May 19 20:29:00 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/site/location', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (582, '::1', 1557830877, 'Tue, 14 May 19 12:47:57 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (583, '::1', 1557830877, 'Tue, 14 May 19 12:47:57 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (584, '::1', 1557830884, 'Tue, 14 May 19 12:48:04 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"8uPj2-DIFpVppsUjpaYGiPbgAgDMr0s9a-co_3jkeTa9lbOil6d04QfKkHeS3z79hK9hTJjBAlcagnmbSLIfUg==\",\"login-form\":{\"login\":\"admin\",\"password\":\"123456\",\"rememberMe\":\"0\"},\"ajax\":\"login-form\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (585, '::1', 1557830884, 'Tue, 14 May 19 12:48:04 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/login', '[]', '{\"_csrf-backend\":\"8uPj2-DIFpVppsUjpaYGiPbgAgDMr0s9a-co_3jkeTa9lbOil6d04QfKkHeS3z79hK9hTJjBAlcagnmbSLIfUg==\",\"login-form\":{\"login\":\"admin\",\"password\":\"123456\",\"rememberMe\":\"0\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (586, '::1', 1557830884, 'Tue, 14 May 19 12:48:04 +0200', '/cmsSefroweb/crmSefroweb/backend/web/', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (587, '::1', 1557830888, 'Tue, 14 May 19 12:48:08 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (588, '::1', 1557830912, 'Tue, 14 May 19 12:48:32 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (589, '::1', 1557830913, 'Tue, 14 May 19 12:48:33 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=5ca34ccf06d55.jpg', '{\"id\":\"5ca34ccf06d55.jpg\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (590, '::1', 1557830913, 'Tue, 14 May 19 12:48:33 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=7', '{\"id\":\"7\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (591, '::1', 1557830915, 'Tue, 14 May 19 12:48:35 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/acticle/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (592, '::1', 1557830917, 'Tue, 14 May 19 12:48:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (593, '::1', 1557830917, 'Tue, 14 May 19 12:48:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=5ca34ccf06d55.jpg', '{\"id\":\"5ca34ccf06d55.jpg\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (594, '::1', 1557830917, 'Tue, 14 May 19 12:48:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=7', '{\"id\":\"7\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (595, '::1', 1557831858, 'Tue, 14 May 19 13:04:18 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (596, '::1', 1557831860, 'Tue, 14 May 19 13:04:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu/creator/create', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (597, '::1', 1557831866, 'Tue, 14 May 19 13:04:26 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu/creator/create', '[]', '{\"_csrf-backend\":\"9DeyORW_Bu1cNBBr-eu3eU9sDOUe3_S02bv-g_wRlwutYN1xJY9emwpxZw3Uru00KC47kGepspmI0qbXs2v8cg==\",\"Model\":{\"menu_name\":\"home\"}}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (598, '::1', 1557831866, 'Tue, 14 May 19 13:04:26 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu/creator/update?id=1', '{\"id\":\"1\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (599, '::1', 1557831867, 'Tue, 14 May 19 13:04:27 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu/creator/update?id=1', '{\"id\":\"1\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (600, '::1', 1557831893, 'Tue, 14 May 19 13:04:53 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu/creator/update?id=1', '{\"id\":\"1\"}', '{\"update\":\"true\",\"menu\":\"{\\n    \\\"left\\\": [\\n        {\\n            \\\"label\\\": \\\"home\\\",\\n            \\\"type\\\": \\\"link\\\"\\n        }\\n    ],\\n    \\\"right\\\": []\\n}\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (601, '::1', 1557831901, 'Tue, 14 May 19 13:05:01 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu/creator/update?id=1', '{\"id\":\"1\"}', '{\"update\":\"true\",\"menu\":\"{\\n    \\\"left\\\": [\\n        {\\n            \\\"label\\\": \\\"home\\\",\\n            \\\"type\\\": \\\"link\\\"\\n        }\\n    ],\\n    \\\"right\\\": []\\n}\"}', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'POST', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (602, '::1', 1557831907, 'Tue, 14 May 19 13:05:07 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (603, '::1', 1557831911, 'Tue, 14 May 19 13:05:11 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/user/admin/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (604, '::1', 1557831913, 'Tue, 14 May 19 13:05:13 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/menu', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (605, '::1', 1557831914, 'Tue, 14 May 19 13:05:14 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/comment/manage/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (606, '::1', 1557831915, 'Tue, 14 May 19 13:05:15 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/logvisitor', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (607, '::1', 1557831916, 'Tue, 14 May 19 13:05:16 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/acticle/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (608, '::1', 1557831920, 'Tue, 14 May 19 13:05:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/news/index', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (609, '::1', 1557831920, 'Tue, 14 May 19 13:05:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=5ca34ccf06d55.jpg', '{\"id\":\"5ca34ccf06d55.jpg\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (610, '::1', 1557831920, 'Tue, 14 May 19 13:05:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/file?id=7', '{\"id\":\"7\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (611, '::1', 1557831921, 'Tue, 14 May 19 13:05:21 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/about/update', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (612, '::1', 1557832228, 'Tue, 14 May 19 13:10:28 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (613, '::1', 1557832277, 'Tue, 14 May 19 13:11:17 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/filemanager', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (614, '::1', 1557832297, 'Tue, 14 May 19 13:11:37 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/logvisitor', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (615, '::1', 1557832407, 'Tue, 14 May 19 13:13:27 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (616, '::1', 1557832444, 'Tue, 14 May 19 13:14:04 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (617, '::1', 1557832583, 'Tue, 14 May 19 13:16:23 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (618, '::1', 1557832603, 'Tue, 14 May 19 13:16:43 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (619, '::1', 1557832685, 'Tue, 14 May 19 13:18:05 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (620, '::1', 1557832732, 'Tue, 14 May 19 13:18:52 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (621, '::1', 1557832758, 'Tue, 14 May 19 13:19:18 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (622, '::1', 1557832855, 'Tue, 14 May 19 13:20:55 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (623, '::1', 1557832877, 'Tue, 14 May 19 13:21:17 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (624, '::1', 1557832914, 'Tue, 14 May 19 13:21:54 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category', '[]', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (625, '::1', 1557832918, 'Tue, 14 May 19 13:21:58 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/create?_=1557832914445', '{\"_\":\"1557832914445\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (626, '::1', 1557832942, 'Tue, 14 May 19 13:22:22 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/1?_=1557832914446', '{\"_\":\"1557832914446\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (627, '::1', 1557832950, 'Tue, 14 May 19 13:22:30 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/update/1?_=1557832914447', '{\"_\":\"1557832914447\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (628, '::1', 1557833021, 'Tue, 14 May 19 13:23:41 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/create?_=1557832914448', '{\"_\":\"1557832914448\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (629, '::1', 1557833032, 'Tue, 14 May 19 13:23:52 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/create?_=1557832914449', '{\"_\":\"1557832914449\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (630, '::1', 1557833060, 'Tue, 14 May 19 13:24:20 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/index?_pjax=%23crud-datatable-pjax', '{\"_pjax\":\"#crud-datatable-pjax\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
+INSERT INTO `logvisitor` VALUES (631, '::1', 1557833061, 'Tue, 14 May 19 13:24:21 +0200', '/cmsSefroweb/crmSefroweb/backend/web/index.php/category/create?_=1557832914450', '{\"_\":\"1557832914450\"}', '[]', '{\"readOnly\":true}', '{\"flashParam\":\"__flash\",\"handler\":null}', 'GET', 'https', 'HTTP/1.1', '443', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0', 'en-US,en;q=0.5');
 
 -- ----------------------------
 -- Table structure for menu
@@ -643,7 +1514,12 @@ CREATE TABLE `menu`  (
   `menu_name` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`menu_id`) USING BTREE,
   INDEX `unique-index-menu-menu_name`(`menu_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES (1, '{\n    \"left\": [\n        {\n            \"label\": \"home\",\n            \"type\": \"link\"\n        }\n    ],\n    \"right\": []\n}', 'home');
 
 -- ----------------------------
 -- Table structure for migration
@@ -771,6 +1647,448 @@ INSERT INTO `profile` VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
 INSERT INTO `profile` VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
+-- Table structure for sle_banks
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_banks`;
+CREATE TABLE `sle_banks`  (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for sle_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_cart`;
+CREATE TABLE `sle_cart`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `sessionID` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `sle_cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_cart
+-- ----------------------------
+INSERT INTO `sle_cart` VALUES (3, 2, 's36mrk8DSiIRl9kXgf3x5XSrfH0cpltV', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_cart` VALUES (4, NULL, 'QRaylBSRxMILNXVf4PtnldwT7Ya0zS8h', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_cart` VALUES (5, NULL, 'Cv1ryKrOLsC7zSObTOnvCQRSs1Zh8vKB', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for sle_cartdetail
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_cartdetail`;
+CREATE TABLE `sle_cartdetail`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cartID` int(11) DEFAULT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `countNumber` int(11) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `sle_cartdetail_ibfk_1`(`cartID`) USING BTREE,
+  INDEX `sle_cartdetail_ibfk_2`(`productID`) USING BTREE,
+  CONSTRAINT `sle_cartdetail_ibfk_1` FOREIGN KEY (`cartID`) REFERENCES `sle_cart` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for sle_customer
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_customer`;
+CREATE TABLE `sle_customer`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nationalCode` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `economicalCode` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customerTypeID` int(11) DEFAULT NULL,
+  `customerKindID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `customerTypeID`(`customerTypeID`) USING BTREE,
+  INDEX `customerKindID`(`customerKindID`) USING BTREE,
+  CONSTRAINT `sle_customer_ibfk_1` FOREIGN KEY (`customerTypeID`) REFERENCES `sle_customertypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_customer_ibfk_2` FOREIGN KEY (`customerKindID`) REFERENCES `sle_customerkinds` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_customer
+-- ----------------------------
+INSERT INTO `sle_customer` VALUES (1066, NULL, NULL, '1231 23123123', NULL, NULL, 1, 1, 1, 0, '2017-05-07 11:34:38.000', NULL, 36, NULL);
+INSERT INTO `sle_customer` VALUES (1067, NULL, NULL, 'Mohammad Saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-05-07 13:50:23.000', NULL, 1038, NULL);
+INSERT INTO `sle_customer` VALUES (1068, NULL, NULL, 'asda asdsad', NULL, NULL, 1, 1, 1, 0, '2017-05-08 10:36:55.000', NULL, 37, NULL);
+INSERT INTO `sle_customer` VALUES (1069, NULL, NULL, 'سفش فثسف', NULL, NULL, 1, 1, 1, 0, '2017-05-31 08:51:07.000', NULL, 1039, NULL);
+INSERT INTO `sle_customer` VALUES (1070, NULL, NULL, 'sdf sdfsf', NULL, NULL, 1, 1, 1, 0, '2017-05-31 09:48:53.000', NULL, 36, NULL);
+INSERT INTO `sle_customer` VALUES (1071, NULL, NULL, 'سی سی', NULL, NULL, 1, 1, 1, 0, '2017-06-06 14:12:27.000', NULL, 3, NULL);
+INSERT INTO `sle_customer` VALUES (1073, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-06-14 08:11:06.000', NULL, 1040, NULL);
+INSERT INTO `sle_customer` VALUES (1074, NULL, NULL, ' ', NULL, NULL, 1, 1, 1, 0, '2017-06-14 11:06:04.000', NULL, 1042, NULL);
+INSERT INTO `sle_customer` VALUES (1075, NULL, NULL, '1 2', NULL, NULL, 1, 1, 1, 0, '2017-07-05 08:28:36.000', NULL, 1, NULL);
+INSERT INTO `sle_customer` VALUES (1076, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-07-05 15:50:32.000', NULL, 1044, NULL);
+INSERT INTO `sle_customer` VALUES (1077, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-07-08 08:36:53.000', NULL, 1044, NULL);
+INSERT INTO `sle_customer` VALUES (1078, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-07-08 09:43:20.000', NULL, 1044, NULL);
+INSERT INTO `sle_customer` VALUES (1079, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-07-08 10:19:38.000', NULL, 1046, NULL);
+INSERT INTO `sle_customer` VALUES (1080, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-07-08 10:19:44.000', NULL, 1046, NULL);
+INSERT INTO `sle_customer` VALUES (1081, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2017-07-09 09:23:06.000', NULL, 1046, NULL);
+INSERT INTO `sle_customer` VALUES (2077, NULL, NULL, 'asdasd asdad', NULL, NULL, 1, 1, 1, 0, '2017-11-12 12:18:52.000', NULL, 2, NULL);
+INSERT INTO `sle_customer` VALUES (3077, NULL, NULL, 'milad saltanatpouri', NULL, NULL, 1, 1, 1, 0, '2018-01-16 15:45:23.000', NULL, 1046, NULL);
+
+-- ----------------------------
+-- Table structure for sle_customerkinds
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_customerkinds`;
+CREATE TABLE `sle_customerkinds`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `isCompany` tinyint(4) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_customerkinds
+-- ----------------------------
+INSERT INTO `sle_customerkinds` VALUES (1, NULL, 'حقیقی', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_customerkinds` VALUES (2, NULL, 'حقوقی', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for sle_customertypes
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_customertypes`;
+CREATE TABLE `sle_customertypes`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `priceTypeID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `priceTypeID`(`priceTypeID`) USING BTREE,
+  CONSTRAINT `sle_customertypes_ibfk_1` FOREIGN KEY (`priceTypeID`) REFERENCES `inv_productpricetypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_customertypes
+-- ----------------------------
+INSERT INTO `sle_customertypes` VALUES (1, NULL, 'مشتریان فروشگاه اینترنتی', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_customertypes` VALUES (2, NULL, 'مشتریان عمده', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for sle_orderdetail
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_orderdetail`;
+CREATE TABLE `sle_orderdetail`  (
+  `id` int(11) NOT NULL,
+  `orderID` int(11) DEFAULT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `amountPrice` double DEFAULT NULL COMMENT 'قیمت واحد',
+  `countNumber` int(11) DEFAULT NULL COMMENT 'تعداد',
+  `amountDiscount` double DEFAULT NULL COMMENT 'تخفیف واحد',
+  `amoutTax` double DEFAULT NULL,
+  `finalAmonutPrice` double DEFAULT NULL COMMENT 'قیمت کل بعد از تخفیف',
+  `qtyPrize` int(11) DEFAULT NULL,
+  `paymentTimeDays` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `orderID`(`orderID`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  CONSTRAINT `sle_orderdetail_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `sle_orders` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for sle_orders
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_orders`;
+CREATE TABLE `sle_orders`  (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `contactID` int(11) DEFAULT NULL,
+  `contactAddressID` int(11) DEFAULT NULL,
+  `paymenttypeID` int(11) DEFAULT NULL,
+  `paymentDetailID` int(11) DEFAULT NULL,
+  `trackCode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  `externalOrderCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `centerID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `centerID`(`centerID`) USING BTREE,
+  INDEX `contactID`(`contactID`) USING BTREE,
+  INDEX `contactAddressID`(`contactAddressID`) USING BTREE,
+  INDEX `paymenttypeID`(`paymenttypeID`) USING BTREE,
+  INDEX `paymentDetailID`(`paymentDetailID`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `sle_orders_ibfk_1` FOREIGN KEY (`centerID`) REFERENCES `glb_center` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orders_ibfk_2` FOREIGN KEY (`contactID`) REFERENCES `crm_contacts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orders_ibfk_3` FOREIGN KEY (`contactAddressID`) REFERENCES `crm_contactaddresses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orders_ibfk_4` FOREIGN KEY (`paymenttypeID`) REFERENCES `sle_paymenttypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orders_ibfk_5` FOREIGN KEY (`paymentDetailID`) REFERENCES `sle_paymentdetails` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orders_ibfk_6` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_orders
+-- ----------------------------
+INSERT INTO `sle_orders` VALUES (1081, 36, 74, 1041, NULL, NULL, NULL, 1, 0, '2017-06-04 11:40:49.000', NULL, 36, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1082, 1039, 73, 1036, NULL, NULL, NULL, 1, 0, '2017-06-06 10:31:09.000', NULL, 1039, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1083, 3, 75, 1042, NULL, NULL, NULL, 1, 0, '2017-06-07 07:42:21.000', NULL, 3, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1084, 3, 75, 1042, NULL, NULL, NULL, 1, 0, '2017-06-07 07:57:23.000', NULL, 3, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1085, 34, 76, 1044, NULL, NULL, NULL, 1, 0, '2017-06-07 08:46:38.000', NULL, 34, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1086, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:10:02.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1087, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:24:00.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1088, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:24:33.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1089, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:27:37.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1090, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:28:40.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1091, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:28:43.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1092, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:40:54.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1093, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:41:08.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1094, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:43:34.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1095, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:56:38.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1096, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:57:52.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1097, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 09:58:00.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1098, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-06-07 10:00:29.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1104, 1038, 71, 1045, NULL, NULL, NULL, 1, 0, '2017-06-07 11:50:05.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1105, 1039, 73, 1036, NULL, NULL, NULL, 1, 0, '2017-06-20 07:20:48.000', NULL, 1039, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1106, 36, 74, 1041, NULL, NULL, NULL, 1, 0, '2017-08-16 14:41:16.000', NULL, 36, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1107, 1038, 71, 2058, NULL, NULL, NULL, 1, 0, '2017-08-20 10:50:41.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1108, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1109, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1110, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1111, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1112, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1113, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1114, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1115, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1116, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1117, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 11:27:20.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1118, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 11:27:32.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1119, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 11:28:30.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1120, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 11:53:27.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1121, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:02:59.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1122, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:03:10.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1123, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:03:34.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1124, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:03:55.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1125, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:03:59.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1126, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:12:09.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1127, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:12:26.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1128, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:13:11.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1129, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:13:14.000', NULL, 1038, NULL, NULL, NULL);
+INSERT INTO `sle_orders` VALUES (1130, 1038, 71, 1033, NULL, NULL, NULL, 1, 0, '2017-09-10 12:20:40.000', NULL, 1038, NULL, '1', NULL);
+INSERT INTO `sle_orders` VALUES (1131, 2, 84, NULL, NULL, NULL, NULL, 1, 0, '2017-11-14 06:54:33.000', NULL, 2, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for sle_orderstatus
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_orderstatus`;
+CREATE TABLE `sle_orderstatus`  (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `priority` smallint(6) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  `label` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_orderstatus
+-- ----------------------------
+INSERT INTO `sle_orderstatus` VALUES (1, '1', 'تایید سفارش', 1, 1, 0, NULL, NULL, NULL, NULL, 'info');
+INSERT INTO `sle_orderstatus` VALUES (2, '2', 'صدور فاکتور', 2, 1, 0, NULL, NULL, NULL, NULL, 'info');
+INSERT INTO `sle_orderstatus` VALUES (3, '3', 'پردازش انبار', 3, 1, 0, NULL, NULL, NULL, NULL, 'info');
+INSERT INTO `sle_orderstatus` VALUES (4, '4', 'ارسال سفارش', 4, 1, 0, NULL, NULL, NULL, NULL, 'success');
+INSERT INTO `sle_orderstatus` VALUES (5, '5', 'دریافت توسط مشتری', 5, 1, 0, NULL, NULL, NULL, NULL, 'info');
+INSERT INTO `sle_orderstatus` VALUES (6, '6', 'در حال بررسی', 6, 1, 0, NULL, NULL, NULL, NULL, 'danger');
+INSERT INTO `sle_orderstatus` VALUES (7, '7', 'ارسال شده به سیستم مبنا', 7, 1, 0, NULL, NULL, NULL, NULL, 'warning');
+
+-- ----------------------------
+-- Table structure for sle_orderstatushistory
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_orderstatushistory`;
+CREATE TABLE `sle_orderstatushistory`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderID` int(11) DEFAULT NULL,
+  `orderStatusID` int(11) DEFAULT NULL,
+  `orderStatusChangeTime` datetime(3) DEFAULT NULL,
+  `statusContactID` int(11) DEFAULT NULL,
+  `orderStatusDesc` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `orderID`(`orderID`) USING BTREE,
+  INDEX `orderStatusID`(`orderStatusID`) USING BTREE,
+  INDEX `statusContactID`(`statusContactID`) USING BTREE,
+  CONSTRAINT `sle_orderstatushistory_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `sle_orders` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orderstatushistory_ibfk_2` FOREIGN KEY (`orderStatusID`) REFERENCES `sle_orderstatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_orderstatushistory_ibfk_3` FOREIGN KEY (`statusContactID`) REFERENCES `crm_contacts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_orderstatushistory
+-- ----------------------------
+INSERT INTO `sle_orderstatushistory` VALUES (1, 1125, 6, NULL, 84, NULL, 1, NULL, '2018-05-15 12:02:16.000', NULL, 2, NULL);
+INSERT INTO `sle_orderstatushistory` VALUES (11, 1130, 7, NULL, 84, NULL, 1, NULL, '2017-10-24 09:41:25.000', '2017-10-24 14:44:14.000', 2, 2);
+INSERT INTO `sle_orderstatushistory` VALUES (12, 1126, 5, NULL, 84, NULL, 1, NULL, '2017-10-24 14:33:42.000', '2017-10-29 07:39:54.000', 2, 2);
+INSERT INTO `sle_orderstatushistory` VALUES (13, 1125, 6, NULL, 84, NULL, 1, NULL, '2017-10-31 08:03:01.000', NULL, 2, NULL);
+INSERT INTO `sle_orderstatushistory` VALUES (14, 1125, 7, NULL, 84, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_orderstatushistory` VALUES (15, 1081, 6, NULL, 84, NULL, 1, NULL, '2017-11-05 11:31:03.000', NULL, 2, NULL);
+INSERT INTO `sle_orderstatushistory` VALUES (16, 1082, 6, NULL, 84, NULL, 1, NULL, '2017-11-05 11:36:12.000', NULL, 2, NULL);
+INSERT INTO `sle_orderstatushistory` VALUES (17, 1113, 6, NULL, 84, NULL, 1, NULL, '2018-05-15 12:05:31.000', NULL, 2, NULL);
+INSERT INTO `sle_orderstatushistory` VALUES (18, 1107, 6, NULL, 84, NULL, 1, NULL, '2018-05-15 12:05:42.000', NULL, 2, NULL);
+
+-- ----------------------------
+-- Table structure for sle_paymentdetails
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_paymentdetails`;
+CREATE TABLE `sle_paymentdetails`  (
+  `id` int(11) NOT NULL,
+  `paymentTypeID` int(11) DEFAULT NULL,
+  `transcationNumber` int(11) DEFAULT NULL,
+  `bankID` int(11) DEFAULT NULL,
+  `paymentTime` datetime(3) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `bankID`(`bankID`) USING BTREE,
+  INDEX `paymentTypeID`(`paymentTypeID`) USING BTREE,
+  CONSTRAINT `sle_paymentdetails_ibfk_1` FOREIGN KEY (`bankID`) REFERENCES `sle_banks` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `sle_paymentdetails_ibfk_2` FOREIGN KEY (`paymentTypeID`) REFERENCES `sle_paymenttypes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for sle_paymenttypes
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_paymenttypes`;
+CREATE TABLE `sle_paymenttypes`  (
+  `id` int(11) NOT NULL,
+  `paymentTypeName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_paymenttypes
+-- ----------------------------
+INSERT INTO `sle_paymenttypes` VALUES (1, 'پرداخت آنلاین', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sle_paymenttypes` VALUES (2, 'پوز در محل', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for sle_saledocumentdtails
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_saledocumentdtails`;
+CREATE TABLE `sle_saledocumentdtails`  (
+  `id` int(11) NOT NULL,
+  `saleDocumentID` int(11) DEFAULT NULL,
+  `productID` int(11) DEFAULT NULL,
+  `invInventoryID` int(11) DEFAULT NULL,
+  `orderDocumentDetailID` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `amountPrice` double DEFAULT NULL,
+  `amountDiscount` double DEFAULT NULL,
+  `amoutTax` double DEFAULT NULL,
+  `finalAmonutPrice` double DEFAULT NULL,
+  `paymentTimeDays` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `invInventoryID`(`invInventoryID`) USING BTREE,
+  INDEX `orderDocumentDetailID`(`orderDocumentDetailID`) USING BTREE,
+  INDEX `productID`(`productID`) USING BTREE,
+  INDEX `saleDocumentID`(`saleDocumentID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for sle_saledocuments
+-- ----------------------------
+DROP TABLE IF EXISTS `sle_saledocuments`;
+CREATE TABLE `sle_saledocuments`  (
+  `id` int(11) NOT NULL,
+  `invOperationID` int(11) DEFAULT NULL,
+  `serial` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `subSerial` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `invInventoryID` int(11) DEFAULT NULL,
+  `documentNo` int(11) DEFAULT NULL,
+  `description` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `execTime` datetime(3) DEFAULT NULL,
+  `amountDiscount` double DEFAULT NULL,
+  `amountTax` double DEFAULT NULL,
+  `amountAdditional` double DEFAULT NULL,
+  `saleDocumentOrderID` int(11) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `createdTime` datetime(3) DEFAULT NULL,
+  `modifiedTime` datetime(3) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `modifiedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of sle_saledocuments
+-- ----------------------------
+INSERT INTO `sle_saledocuments` VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
 -- Table structure for social_account
 -- ----------------------------
 DROP TABLE IF EXISTS `social_account`;
@@ -860,7 +2178,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', 'mysaltern@gmail.com', '$2y$10$pKM50Zds4bMpE7u8S8Uk2uTN2o6hgZRMQFpKBiId9Ouxz8r/xOUE.', 'C4a8r6cbPbRCW9oL7D6eNWWw-XhgsB7e', 1, NULL, NULL, '::1', 1554191095, 1554191095, 0, 1554366753, 10);
+INSERT INTO `user` VALUES (1, 'admin', 'mysaltern@gmail.com', '$2y$10$pKM50Zds4bMpE7u8S8Uk2uTN2o6hgZRMQFpKBiId9Ouxz8r/xOUE.', 'C4a8r6cbPbRCW9oL7D6eNWWw-XhgsB7e', 1, NULL, NULL, '::1', 1554191095, 1554191095, 0, 1557830884, 10);
 INSERT INTO `user` VALUES (2, 'asdad', 'dasdad@asdasd.com', '$2y$10$99Ff6dkENeIZ/Brnsd0xfOAhn/es9XYacHXUotio27QwcrLZGafdW', 'nGGXZz5MB4EI6Q3BSxFOGLe0VmgNlxPx', 1555059198, NULL, NULL, '::1', 1555059198, 1555059198, 0, NULL, NULL);
 
 -- ----------------------------
