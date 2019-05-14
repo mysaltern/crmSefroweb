@@ -10,6 +10,9 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log', 'logvisitor'],
     'modules' => [
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        ],
         'filemanager' => [
             'class' => 'pendalf89\filemanager\Module',
             // Upload routes

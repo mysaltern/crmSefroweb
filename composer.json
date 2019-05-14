@@ -32,7 +32,10 @@
         "pceuropa/yii2-menu": "dev-master",
         "pendalf89/yii2-filemanager": "*",
         "yii2mod/yii2-rbac": "*",
-        "dektrium/yii2-rbac": "1.0.0-alpha@dev"
+        "dektrium/yii2-rbac": "1.0.0-alpha@dev",
+        "johnitvn/yii2-ajaxcrud": "*",
+        "pigochu/yii2-jquery-locationpicker": ">=0.2.0",
+        "kartik-v/yii2-builder": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

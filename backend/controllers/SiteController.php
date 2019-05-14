@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -12,6 +13,7 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
+
     /**
      * {@inheritdoc}
      */
@@ -22,11 +24,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'location'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'location', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -63,6 +65,19 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionLocation()
+    {
+
+        $searchModel = new \common\models\InvProductsSearch ();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('location', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+//        return $this->render('location');
+    }
+
     /**
      * Login action.
      *
@@ -70,18 +85,22 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest)
+        {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login())
+        {
             return $this->goBack();
-        } else {
+        }
+        else
+        {
             $model->password = '';
 
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -97,4 +116,5 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
 }

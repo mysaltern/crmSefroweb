@@ -43,6 +43,7 @@ AppAsset::register($this);
             }
             else
             {
+                $menuItems[] = ['label' => 'ارتباط با ما', 'url' => ['/about/update']];
                 $menuItems[] = ['label' => 'اخبار', 'url' => ['//news/index']];
                 $menuItems[] = ['label' => 'مقالات', 'url' => ['/acticle/index']];
                 $menuItems[] = ['label' => 'بازدید ها ', 'url' => ['/logvisitor']];
