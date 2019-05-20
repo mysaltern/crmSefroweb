@@ -1,34 +1,30 @@
 <?php
 
-
-namespace app\controllers;
-
+namespace backend\controllers;
 
 use Yii;
-use app\models\SleOrders;
-use app\models\SleOrdersSearch;
+use common\models\SleOrders;
+use common\models\SleOrdersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 use yii\data\Pagination;
-use app\models\SleOrderDetail;
-use app\models\SleOrderStatusHistory;
-
+use common\models\SleOrderDetail;
+use common\models\SleOrderStatusHistory;
 
 /**
  * OrdersController implements the CRUD actions for SleOrders model.
  */
 class OrdersController extends Controller
-    {
-
+{
 
     /**
      * @inheritdoc
      */
     public function behaviors()
-        {
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -42,7 +38,7 @@ class OrdersController extends Controller
                 'only' => ['create', 'update', 'index', 'delete'],
                 'rules' => [
                     // deny all POST requests
-                        [
+                    [
                         'allow' => TRUE,
                         'verbs' => ['POST']
                     ],
@@ -55,16 +51,14 @@ class OrdersController extends Controller
                 ],
             ],
         ];
-
-        }
-
+    }
 
     /**
      * Lists all SleOrders models.
      * @return mixed
      */
     public function actionIndex()
-        {
+    {
         $searchModel = new SleOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -72,9 +66,7 @@ class OrdersController extends Controller
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
-
-        }
-
+    }
 
     /**
      * Displays a single SleOrders model.
@@ -82,11 +74,11 @@ class OrdersController extends Controller
      * @return mixed
      */
     public function actionView($id)
-        {
-        $request = Yii::$app->request;
+    {
+        $request = Yii::$common->request;
         if ($request->isAjax)
-            {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+        {
+            Yii::$common->response->format = Response::FORMAT_JSON;
             return [
                 'title' => "SleOrders #" . $id,
                 'content' => $this->renderAjax('view', [
@@ -95,16 +87,14 @@ class OrdersController extends Controller
                 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                 Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
             ];
-            }
+        }
         else
-            {
+        {
             return $this->render('view', [
                         'model' => $this->findModel($id),
             ]);
-            }
-
         }
-
+    }
 
     /**
      * Creates a new SleOrders model.
@@ -113,18 +103,18 @@ class OrdersController extends Controller
      * @return mixed
      */
     public function actionCreate()
-        {
+    {
         $request = Yii::$app->request;
         $model = new SleOrders();
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet)
-                {
+            {
                 return [
                     'title' => "Create new SleOrders",
                     'content' => $this->renderAjax('create', [
@@ -133,9 +123,9 @@ class OrdersController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
+            }
             else if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->createdTime = date('Y-m-d H:i:s.u');
@@ -148,9 +138,9 @@ class OrdersController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::a('Create More', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
-                }
+            }
             else
-                {
+            {
                 return [
                     'title' => "Create new SleOrders",
                     'content' => $this->renderAjax('create', [
@@ -159,32 +149,30 @@ class OrdersController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
             }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->createdTime = date('Y-m-d H:i:s.u');
-                $model->createdBy = Yii::$app->user->getId();
+                $model->createdBy = Yii::$common->user->getId();
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
-                }
+            }
             else
-                {
+            {
                 return $this->render('create', [
                             'model' => $model,
                 ]);
-                }
             }
-
         }
-
+    }
 
     /**
      * Updates an existing SleOrders model.
@@ -194,18 +182,18 @@ class OrdersController extends Controller
      * @return mixed
      */
     public function actionUpdate($id)
-        {
-        $request = Yii::$app->request;
+    {
+        $request = Yii::$common->request;
         $model = $this->findModel($id);
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
-            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$common->response->format = Response::FORMAT_JSON;
             if ($request->isGet)
-                {
+            {
                 return [
                     'title' => "Update SleOrders #" . $id,
                     'content' => $this->renderAjax('update', [
@@ -214,13 +202,13 @@ class OrdersController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
+            }
             else if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->modifiedTime = date('Y-m-d H:i:s.u');
-                $model->modifiedBy = Yii::$app->user->getId();
+                $model->modifiedBy = Yii::$common->user->getId();
                 $model->save();
                 return [
                     'forceReload' => '#crud-datatable-pjax',
@@ -231,9 +219,9 @@ class OrdersController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::a('Edit', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
-                }
+            }
             else
-                {
+            {
                 return [
                     'title' => "Update SleOrders #" . $id,
                     'content' => $this->renderAjax('update', [
@@ -242,32 +230,30 @@ class OrdersController extends Controller
                     'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
             }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->modifiedTime = date('Y-m-d H:i:s.u');
-                $model->modifiedBy = Yii::$app->user->getId();
+                $model->modifiedBy = Yii::$common->user->getId();
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
-                }
+            }
             else
-                {
+            {
                 return $this->render('update', [
                             'model' => $model,
                 ]);
-                }
             }
-
         }
-
+    }
 
     /**
      * Delete an existing SleOrders model.
@@ -277,28 +263,26 @@ class OrdersController extends Controller
      * @return mixed
      */
     public function actionDelete($id)
-        {
-        $request = Yii::$app->request;
+    {
+        $request = Yii::$common->request;
         $this->findModel($id)->delete();
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
-            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$common->response->format = Response::FORMAT_JSON;
             return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-            }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             return $this->redirect(['index']);
-            }
-
         }
-
+    }
 
     /**
      * Delete multiple existing SleOrders model.
@@ -308,8 +292,8 @@ class OrdersController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-        {
-        $request = Yii::$app->request;
+    {
+        $request = Yii::$common->request;
         $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
         foreach ($pks as $pk)
         {
@@ -318,23 +302,21 @@ class OrdersController extends Controller
         }
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
-            Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$common->response->format = Response::FORMAT_JSON;
             return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-            }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             return $this->redirect(['index']);
-            }
-
         }
-
+    }
 
     /**
      * Finds the SleOrders model based on its primary key value.
@@ -344,18 +326,16 @@ class OrdersController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
-        {
+    {
         if (($model = SleOrders::findOne($id)) !== null)
-            {
+        {
             return $model;
-            }
-        else
-            {
-            throw new NotFoundHttpException('The requested page does not exist.');
-            }
-
         }
-
+        else
+        {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
     /**
      * Displays a single SleOrders model.
@@ -363,7 +343,7 @@ class OrdersController extends Controller
      * @return mixed
      */
     public function actionShow()
-        {
+    {
         $query = (new \yii\db\Query())
                 ->select(['sle_Orders.id', 'user_id', 'sle_Orders.createdTime', 'sle_PaymentDetails.transcationNumber', 'crm_Contacts.fName', 'crm_Contacts.lName', 'crm_ContactAddresses.address', 'sle_PaymentTypes.paymentTypeName'])
                 ->from('sle_Orders')
@@ -373,13 +353,13 @@ class OrdersController extends Controller
                 ->leftJoin('sle_PaymentDetails', 'sle_Orders.paymentDetailID=sle_PaymentDetails.id AND sle_PaymentDetails.active=1 AND sle_PaymentDetails.deleted=0')
                 ->leftJoin('sle_PaymentTypes', 'sle_Orders.paymenttypeID=sle_PaymentTypes.id AND sle_PaymentTypes.active=1 AND sle_PaymentTypes.deleted=0');
         if (isset($_GET['per-page']) and ! empty($_GET['per-page']))
-            {
+        {
             $limit = $_GET['per-page'];
-            }
+        }
         else
-            {
+        {
             $limit = 10;
-            }
+        }
 
         $queryItem = $query;
 
@@ -393,14 +373,14 @@ class OrdersController extends Controller
                 ->all();
         foreach ($orders as $key => $value)
         {
-            $orders[$key]['createdTime'] = Yii::$app->mycomponent->gregorian_to_jalali_date($value['createdTime']);
+            $orders[$key]['createdTime'] = Yii::$common->mycomponent->gregorian_to_jalali_date($value['createdTime']);
             $orders[$key]['SleOrderDetail'] = SleOrderDetail::find()
                     ->innerJoinWith(['product', 'glbImagesProduct'])
                     ->where(['t.orderID' => $value['id']])
                     ->alias('t')
                     ->asArray()
                     ->all();
-//            $orders[$key]['SleOrderDetail']['product']=  \app\models\InvProducts::getProductDetail($orders[$key]['SleOrderDetail']['productID']);
+//            $orders[$key]['SleOrderDetail']['product']=  \common\models\InvProducts::getProductDetail($orders[$key]['SleOrderDetail']['productID']);
             $sum = 0;
             if (!empty($orders[$key]['SleOrderDetail']))
                 foreach ($orders[$key]['SleOrderDetail'] as $key2 => $value2)
@@ -419,9 +399,6 @@ class OrdersController extends Controller
                     ->all();
         }
         return $this->render('my', ['orders' => $orders, 'pages' => $pages]);
-
-        }
-
-
     }
 
+}

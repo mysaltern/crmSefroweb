@@ -21,6 +21,9 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'mycomponent' => [
+            'class' => 'common\components\MyComponent',
+        ],
         'authManager' => [
             'class' => 'dektrium\rbac\components\DbManager',
         ],
