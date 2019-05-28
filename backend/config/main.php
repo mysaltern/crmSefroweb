@@ -17,7 +17,7 @@ return [
             'class' => 'pendalf89\filemanager\Module',
             // Upload routes
             'routes' => [
-                // Base absolute path to web directory
+// Base absolute path to web directory
                 'baseUrl' => '',
                 // Base web directory url
                 'basePath' => '@frontend/web',
@@ -50,11 +50,18 @@ return [
             'class' => 'slavkovrn\logvisitor\LogVisitorModule',
         ],
         'user' => [
-            // following line will restrict access to profile, recovery, registration and settings controllers from backend
+// following line will restrict access to profile, recovery, registration and settings controllers from backend
             'as backend' => 'dektrium\user\filters\BackendFilter',
         ],
     ],
     'components' => [
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@backend/views/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                ],
+            ],
+        ],
         'logvisitor' => [
             'class' => 'slavkovrn\logvisitor\LogVisitorComponent',
             'filterIp' => '127.0.0.1,213.87.', /* comma separated substrings of IP  to be filtered of log in table , begining from first position  */
@@ -110,5 +117,18 @@ return [
       ],
      */
     ],
+//    'as access' => [
+//        'class' => yii2mod\rbac\filters\AccessControl::class,
+//        'allowActions' => [
+//            'site/*',
+//            'rbac/*',
+//            'admin/*',
+//        // The actions listed here will be allowed to everyone including guests.
+//// So, 'admin/*' should not appear here in the production, of course.
+//// But in the earlier stages of your development, you may probably want to
+//// add a lot of actions here until you finally completed setting up rbac,
+//// otherwise you may not even take a first step.
+//        ]
+//    ],
     'params' => $params,
 ];
