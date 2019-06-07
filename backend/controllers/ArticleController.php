@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NewsController implements the CRUD actions for News model.
+ * ArticleController implements the CRUD actions for Article model.
  */
-class NewsController extends Controller
+class ArticleController extends Controller
 {
 
     /**
@@ -31,7 +31,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Lists all News models.
+     * Lists all Article models.
      * @return mixed
      */
     public function actionIndex()
@@ -39,7 +39,7 @@ class NewsController extends Controller
 
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->where('article = :field1', [':field1' => 0]);
+        $dataProvider->query->where('article = :field1', [':field1' => 1]);
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -47,7 +47,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Displays a single News model.
+     * Displays a single Article model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,7 +60,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Creates a new News model.
+     * Creates a new Article model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -81,9 +81,8 @@ class NewsController extends Controller
                     $model->photo = $fileModel->id;
                 }
             }
-
+            $model->article = 1;
             $model->date = time();
-            $model->article = 0;
 
             $model->save(false);
 
@@ -96,7 +95,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Updates an existing News model.
+     * Updates an existing Article model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -136,7 +135,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Deletes an existing News model.
+     * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -150,10 +149,10 @@ class NewsController extends Controller
     }
 
     /**
-     * Finds the News model based on its primary key value.
+     * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return News the loaded model
+     * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

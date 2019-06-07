@@ -63,7 +63,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        return $this->render('index');
+
+        $comments = \common\models\Comment::find()->asArray()->orderBy('id asc')->limit(20)->all();
+
+        return $this->render('index', [
+                    'comments' => $comments,
+        ]);
     }
 
     public function actionLocation()

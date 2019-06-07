@@ -18,6 +18,8 @@ use Yii;
  * @property int $publish_date
  * @property int $date_update
  * @property int $active
+ * @property int $article
+ *
  */
 class News extends \yii\db\ActiveRecord
 {
@@ -40,7 +42,7 @@ class News extends \yii\db\ActiveRecord
         return [
             [['title', 'content', 'desc'], 'required'],
             [['content', 'desc'], 'string'],
-            [['views', 'type', 'active', 'date', 'publish_date', 'date_update'], 'integer'],
+            [['views', 'type', 'active', 'date', 'publish_date', 'article', 'date_update'], 'integer'],
 //            [['date', 'publish_date'], 'safe'],
             [['title', 'photo'], 'string', 'max' => 255],
         ];

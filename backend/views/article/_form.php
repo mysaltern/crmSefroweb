@@ -6,15 +6,16 @@ use faravaghi\jalaliDatePicker\jalaliDatePicker;
 use dosamigos\tinymce\TinyMce;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\News */
+/* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="news-form">
+<div class="Article-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
 
     <?=
     $form->field($model, 'content')->widget(TinyMce::className(), [
@@ -58,6 +59,7 @@ use dosamigos\tinymce\TinyMce;
         ]
     ]);
     ?>
+
     <?php
     $action = Yii::$app->controller->action->id;
 

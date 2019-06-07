@@ -8,6 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\db\Query;
 use SoapClient;
 
+//       Yii::$app->mycomponent->getStatus();
 class MyComponent extends Component
 {
 
@@ -103,105 +104,6 @@ class MyComponent extends Component
         return($database[0]['images']);
     }
 
-    public function txt($product, $count, $return = '')
-    {
-        $return = $product . '=' . $count . '-';
-        return $return;
-    }
-
-    public function full($txt, $nationalCode, $name, $lName, $tel, $mobile, $provinceCode, $cityCode, $address, $codeCenter)
-    {
-
-        $query = "
-SET NOCOUNT ON
-        DECLARE @return_value int EXEC @return_value = [dbo].[pooradSP_SaleDocument_Insert]
-        @smsText = N'*1200069!$txt',
-        @nationalCode = N'$nationalCode',
-        @name = N'$name',
-        @lastName = N'$lName',
-        @tel = N'$tel',
-        @mobile = N'$mobile',
-        @postalCode = $provinceCode,
-        @cityCode = $cityCode,
-        @address = N'$address',
-        @codeCenter = $codeCenter
-        SELECT @return_value as Result
-";
-
-
-
-
-        try
-        {
-            $connection = \Yii::$app->db2;
-
-            $users = $connection->createCommand($query)->queryAll();
-        }
-        catch (Exception $ex)
-        {
-            echo 'Query failed', $ex->getMessage();
-            return false;
-        }
-
-
-
-
-        if (isset($users[0]['Result']))
-        {
-            if (!empty($users[0]['Result']))
-            {
-
-                return $users[0]['Result'];
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public function sendMessage($sms, $mobile)
-    {
-        $client = new \SoapClient('http://www.payamsms.com/wsdl?t=' . time(), array(
-            'location' => 'http://www.payamsms.com/soap',
-            'uri' => 'http://www.payamsms.com/soap',
-            'use' => SOAP_LITERAL,
-            'style' => SOAP_DOCUMENT,
-            'trace' => 1
-        ));
-
-        $str = substr($mobile, 1);
-        $mobile = '98' . $str;
-
-        echo 'Sending message...' . PHP_EOL;
-        $response = $client->send(array(
-            'userName' => 'aJl7qk-1gut7iZnQD2uidg',
-            'password' => 'darou 61983',
-            'sourceNo' => 200061983,
-            'destNo' => array($mobile),
-            'sourcePort' => 0,
-            'destPort' => 0,
-            'clientId' => null,
-            'messageType' => null,
-            'encoding' => null,
-            'longSupported' => false,
-            'dueTime' => null,
-            'content' => $sms
-        ));
-        if ($response->sendReturn->status == 0)
-        {
-//            echo "Here are your message id(s): " . implode(', ', $response->sendReturn->id->id) . PHP_EOL;
-        }
-        else
-        {
-            echo "Error while sending message(s). Errno {$response->sendReturn->status} \n";
-        }
-    }
-
     public function getContactID($userID)
     {
 
@@ -224,11 +126,33 @@ SET NOCOUNT ON
     public function getStatus($id)
     {
 
-        $model = \app\models\SleOrderStatusHistory::find()->asArray()->all();
-
-        foreach ($model as $m)
+        if ($id == 1)
         {
-
+            return 'در حال بررسی';
+        }
+        elseif ($id == 0)
+        {
+            return 'تایید شده';
+        }
+        elseif ($id == 2)
+        {
+            return 'رد شده';
+        }
+        elseif ($id == 3)
+        {
+            return '';
+        }
+        elseif ($id == 4)
+        {
+            return 'تایید شده';
+        }
+        elseif ($id == 5)
+        {
+            return 'تایید شده';
+        }
+        else
+        {
+            return 'نا مشخص';
         }
     }
 

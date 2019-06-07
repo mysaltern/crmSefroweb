@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\News;
-use common\models\NewsSearch;
+use common\models\Page;
+use common\models\PageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NewsController implements the CRUD actions for News model.
+ * PageController implements the CRUD actions for Page model.
  */
-class NewsController extends Controller
+class PageController extends Controller
 {
 
     /**
@@ -31,15 +31,14 @@ class NewsController extends Controller
     }
 
     /**
-     * Lists all News models.
+     * Lists all Page models.
      * @return mixed
      */
     public function actionIndex()
     {
-
-        $searchModel = new NewsSearch();
+        $searchModel = new PageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->where('article = :field1', [':field1' => 0]);
+
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -47,7 +46,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Displays a single News model.
+     * Displays a single Page model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,13 +59,13 @@ class NewsController extends Controller
     }
 
     /**
-     * Creates a new News model.
+     * Creates a new Page model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new News();
+        $model = new Page();
 
         if ($model->load(Yii::$app->request->post()))
         {
@@ -82,8 +81,7 @@ class NewsController extends Controller
                 }
             }
 
-            $model->date = time();
-            $model->article = 0;
+            $model->time = time();
 
             $model->save(false);
 
@@ -96,7 +94,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Updates an existing News model.
+     * Updates an existing Page model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -123,20 +121,19 @@ class NewsController extends Controller
             {
                 $model->photo = $photo;
             }
-            $model->date_update = time();
+            $model->time = time();
 
             $model->save(false);
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
                     'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing News model.
+     * Deletes an existing Page model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -150,20 +147,20 @@ class NewsController extends Controller
     }
 
     /**
-     * Finds the News model based on its primary key value.
+     * Finds the Page model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return News the loaded model
+     * @return Page the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = News::findOne($id)) !== null)
+        if (($model = Page::findOne($id)) !== null)
         {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
 }

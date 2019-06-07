@@ -2,40 +2,20 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use faravaghi\jalaliDatePicker\jalaliDatePicker;
 use dosamigos\tinymce\TinyMce;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\News */
+/* @var $model common\models\Page */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="news-form">
+<div class="page-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?=
-    $form->field($model, 'content')->widget(TinyMce::className(), [
-        'options' => ['rows' => 6],
-        'language' => 'fa',
-        'clientOptions' => [
-//            'theme' => 'modern',
-//            'skin' => 'lightgray-gradient', //charcoal, tundora, lightgray-gradient, lightgray
-            'image_advtab' => true,
-            'plugins' => [
-                "advlist autolink lists link image charmap print preview hr anchor pagebreak placeholder",
-                "searchreplace wordcount visualblocks visualchars code fullscreen",
-                "insertdatetime media nonbreaking save table contextmenu directionality",
-                "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc noneditable",
-            ],
-            'toolbar1' => "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-            'toolbar2' => "print preview media | forecolor backcolor emoticons | codesample",
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        ]
-    ]);
-    ?>
+    <?= $form->field($model, 'summary')->textInput(['maxlength' => true]) ?>
 
 
     <?=
@@ -58,6 +38,7 @@ use dosamigos\tinymce\TinyMce;
         ]
     ]);
     ?>
+
     <?php
     $action = Yii::$app->controller->action->id;
 
@@ -72,33 +53,13 @@ use dosamigos\tinymce\TinyMce;
     ?>
     <?= $form->field($model, 'photo')->fileInput(); ?>
 
-
-
-    <?php
-    echo $form->field(
-                    $model, 'publish_date_'
-            )
-            ->widget(
-                    jalaliDatePicker::className(), [
-                'options' => array(
-                    'format' => 'yyyy/mm/dd',
-                    'viewformat' => 'yyyy/mm/dd',
-                    'placement' => 'left',
-                    'todayBtn' => 'linked',
-                ),
-//                'htmlOptions' => [
-//                    'id' => 'publish_date_',
-//                    'class' => 'form-control'
-//                ]
-    ]);
-    ?>
     <?php
     $item = array('0' => 'deactive', '1' => 'active');
     ?>
     <?= $form->field($model, 'active')->dropDownList($item) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
