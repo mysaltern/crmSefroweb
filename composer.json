@@ -37,8 +37,7 @@
         "pigochu/yii2-jquery-locationpicker": ">=0.2.0",
         "kartik-v/yii2-builder": "dev-master",
         "dmstr/yii2-adminlte-asset": "^2.1",
-        "2amigos/yii2-chartjs-widget": "~2.0",
-        "mihaildev/yii2-elfinder": "*"
+        "2amigos/yii2-chartjs-widget": "~2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
