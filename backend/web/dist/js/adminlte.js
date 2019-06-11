@@ -114,7 +114,7 @@ throw new Error('AdminLTE requires jQuery')
       }
     });
   }
-
+ 
   var old = $.fn.boxRefresh;
 
   $.fn.boxRefresh             = Plugin;

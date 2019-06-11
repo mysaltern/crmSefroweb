@@ -17,7 +17,7 @@
         <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                <input type="text" name="q" class="form-control" placeholder="جستجو..."/>
                 <span class="input-group-btn">
                     <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
                     </button>
@@ -36,10 +36,10 @@
 //                        ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                         [
                             'label' => 'مدیریت محتوا',
-                            'icon' => 'circle-o',
+                            'icon' => 'far fa-keyboard',
                             'url' => '#',
                             'items' => [
-                                ['label' => 'اخبار', 'icon' => 'circle-o', 'url' => ['./news/index'],],
+                                ['label' => 'اخبار', 'icon' => 'far fa-newspaper', 'url' => ['./news/index'],],
                                 ['label' => 'مقالات', 'icon' => 'circle-o', 'url' => ['./article/index'],],
                                 ['label' => 'صفحات', 'icon' => 'circle-o', 'url' => ['./page/index'],],
                                 ['label' => 'درباره ما', 'icon' => 'circle-o', 'url' => ['./about/update'],],
