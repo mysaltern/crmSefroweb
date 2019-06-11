@@ -40,8 +40,8 @@
                             'url' => '#',
                             'items' => [
                                 ['label' => 'اخبار', 'icon' => 'far fa-newspaper', 'url' => ['./news/index'],],
-                                ['label' => 'مقالات', 'icon' => 'circle-o', 'url' => ['./article/index'],],
-                                ['label' => 'صفحات', 'icon' => 'circle-o', 'url' => ['./page/index'],],
+                                ['label' => 'مقالات', 'icon' => 'fas fa-newspaper', 'url' => ['./article/index'],],
+                                ['label' => 'صفحات', 'icon' => 'far fa-file', 'url' => ['./page/index'],],
                                 ['label' => 'درباره ما', 'icon' => 'circle-o', 'url' => ['./about/update'],],
                                 ['label' => 'منو', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./menu'],],
 //                                ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
