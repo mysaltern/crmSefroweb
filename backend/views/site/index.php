@@ -69,19 +69,7 @@ $this->title = 'فراز اندیشان';
 
 
 
-        <?php
-        foreach ($comments as $comment)
-        {
 
-            echo $content = $comment['content'];
-            $time = $comment['createdAt'];
-            echo Yii::$app->mycomponent->getStatus($comment['status']);
-
-            echo \Yii::$app->jdf->jdate($format = 'Y/F/j', $timestamp = $time, $none = '', $time_zone = 'Asia/Tehran', $tr_num = 'fa');
-
-            echo "<br/>";
-        }
-        ?>
 
 
         <?php

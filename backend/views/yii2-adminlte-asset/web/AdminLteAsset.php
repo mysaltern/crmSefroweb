@@ -1,4 +1,5 @@
 <?php
+
 namespace dmstr\web;
 
 use yii\base\Exception;
@@ -10,7 +11,8 @@ use yii\web\AssetBundle as BaseAdminLteAsset;
  */
 class AdminLteAsset extends BaseAdminLteAsset
 {
-    public $sourcePath = '@vendor/almasaeed2010/adminlte/dist';
+
+    public $sourcePath = '@backend/web/dist';
     public $css = [
         'css/AdminLTE.min.css',
     ];
@@ -36,8 +38,10 @@ class AdminLteAsset extends BaseAdminLteAsset
     public function init()
     {
         // Append skin color file if specified
-        if ($this->skin) {
-            if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
+        if ($this->skin)
+        {
+            if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0))
+            {
                 throw new Exception('Invalid skin specified');
             }
 
@@ -46,4 +50,5 @@ class AdminLteAsset extends BaseAdminLteAsset
 
         parent::init();
     }
+
 }
