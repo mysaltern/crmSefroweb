@@ -8,7 +8,7 @@
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p>Faraz Andishan</p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -44,9 +44,9 @@
                                 ['label' => 'صفحات', 'icon' => 'circle-o', 'url' => ['/page/index'],],
                                 ['label' => 'درباره ما', 'icon' => 'circle-o', 'url' => ['/about/update'],],
                                 ['label' => 'منو', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
-                                ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
+//                                ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
                                 ['label' => 'آپلود سنتر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/filemanager'],],
-                                ['label' => 'گالری', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
+//                                ['label' => 'گالری', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
                             ],
                         ],
                         [
@@ -54,11 +54,12 @@
                             'icon' => 'circle-o',
                             'url' => '#',
                             'items' => [
-                                ['label' => 'محصولات', 'icon' => 'circle-o', 'url' => ['products/index'],],
-                                ['label' => ' دسته بندی', 'icon' => 'circle-o', 'url' => ['products/index'],],
-                                ['label' => 'ویژگی ', 'icon' => 'circle-o', 'url' => ['products/index'],],
-                                ['label' => 'تولید کننده', 'icon' => 'circle-o', 'url' => ['products/index'],],
-                                ['label' => 'وارد کننده', 'icon' => 'circle-o', 'url' => ['products/index'],],
+                                ['label' => 'محصولات', 'icon' => 'circle-o', 'url' => ['./products/index'],],
+                                ['label' => ' دسته بندی', 'icon' => 'circle-o', 'url' => ['./category/index'],],
+                                ['label' => 'ویژگی ', 'icon' => 'circle-o', 'url' => ['./specification/index'],],
+                                ['label' => 'شکل محصول ', 'icon' => 'circle-o', 'url' => ['./productshapes/index'],],
+                                ['label' => 'تامین  کننده', 'icon' => 'circle-o', 'url' => ['./productsuppliers/index'],],
+                                ['label' => 'وارد کننده', 'icon' => 'circle-o', 'url' => ['./productmanufacturers/index'],],
                                 [
                                     'label' => 'قیمت گذاری و تخفیفات',
                                     'icon' => 'circle-o',

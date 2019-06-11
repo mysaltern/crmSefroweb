@@ -1,31 +1,27 @@
 <?php
 
-
-namespace app\controllers;
-
+namespace backend\controllers;
 
 use Yii;
-use app\models\InvProductSuppliers;
-use app\models\InvProductSuppliersSearch;
+use common\models\InvProductSuppliers;
+use common\models\InvProductSuppliersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 
-
 /**
  * ProductsuppliersController implements the CRUD actions for InvProductSuppliers model.
  */
 class ProductsuppliersController extends Controller
-    {
-
+{
 
     /**
      * @inheritdoc
      */
     public function behaviors()
-        {
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -39,7 +35,7 @@ class ProductsuppliersController extends Controller
                 'only' => ['create', 'update', 'index', 'delete'],
                 'rules' => [
                     // deny all POST requests
-                        [
+                    [
                         'allow' => TRUE,
                         'verbs' => ['POST']
                     ],
@@ -52,16 +48,14 @@ class ProductsuppliersController extends Controller
                 ],
             ],
         ];
-
-        }
-
+    }
 
     /**
      * Lists all InvProductSuppliers models.
      * @return mixed
      */
     public function actionIndex()
-        {
+    {
         $searchModel = new InvProductSuppliersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -69,9 +63,7 @@ class ProductsuppliersController extends Controller
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
-
-        }
-
+    }
 
     /**
      * Displays a single InvProductSuppliers model.
@@ -79,10 +71,10 @@ class ProductsuppliersController extends Controller
      * @return mixed
      */
     public function actionView($id)
-        {
+    {
         $request = Yii::$app->request;
         if ($request->isAjax)
-            {
+        {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
                 'title' => "InvProductSuppliers #" . $id,
@@ -92,16 +84,14 @@ class ProductsuppliersController extends Controller
                 'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                 Html::a('ویرایش', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
             ];
-            }
+        }
         else
-            {
+        {
             return $this->render('view', [
                         'model' => $this->findModel($id),
             ]);
-            }
-
         }
-
+    }
 
     /**
      * Creates a new InvProductSuppliers model.
@@ -110,18 +100,18 @@ class ProductsuppliersController extends Controller
      * @return mixed
      */
     public function actionCreate()
-        {
+    {
         $request = Yii::$app->request;
         $model = new InvProductSuppliers();
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet)
-                {
+            {
                 return [
                     'title' => "اضافه کردن تامین کننده",
                     'content' => $this->renderAjax('create', [
@@ -130,9 +120,9 @@ class ProductsuppliersController extends Controller
                     'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('ذخیره', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
+            }
             else if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->createdTime = date('Y-m-d H:i:s.u');
@@ -145,9 +135,9 @@ class ProductsuppliersController extends Controller
                     'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::a('اضافه کردن آیتم جدید', ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
-                }
+            }
             else
-                {
+            {
                 return [
                     'title' => "اضافه کردن تامین کننده",
                     'content' => $this->renderAjax('create', [
@@ -156,32 +146,30 @@ class ProductsuppliersController extends Controller
                     'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('ذخیره', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
             }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->createdTime = date('Y-m-d H:i:s.u');
                 $model->createdBy = Yii::$app->user->getId();
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
-                }
+            }
             else
-                {
+            {
                 return $this->render('create', [
                             'model' => $model,
                 ]);
-                }
             }
-
         }
-
+    }
 
     /**
      * Updates an existing InvProductSuppliers model.
@@ -191,18 +179,18 @@ class ProductsuppliersController extends Controller
      * @return mixed
      */
     public function actionUpdate($id)
-        {
+    {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($request->isGet)
-                {
+            {
                 return [
                     'title' => "ویرایش تامین کنندگان #" . $id,
                     'content' => $this->renderAjax('update', [
@@ -211,9 +199,9 @@ class ProductsuppliersController extends Controller
                     'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('ذخیره', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
+            }
             else if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->modifiedTime = date('Y-m-d H:i:s.u');
@@ -228,9 +216,9 @@ class ProductsuppliersController extends Controller
                     'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::a('ویرایش', ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
-                }
+            }
             else
-                {
+            {
                 return [
                     'title' => "ویرایش تامین کنندگان #" . $id,
                     'content' => $this->renderAjax('update', [
@@ -239,32 +227,30 @@ class ProductsuppliersController extends Controller
                     'footer' => Html::button('بستن', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
                     Html::button('ذخیره', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
-                }
             }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             if ($model->load($request->post()) && $model->save())
-                {
+            {
                 $model->deleted = 0;
                 $model->active = 1;
                 $model->modifiedTime = date('Y-m-d H:i:s.u');
                 $model->modifiedBy = Yii::$app->user->getId();
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
-                }
+            }
             else
-                {
+            {
                 return $this->render('update', [
                             'model' => $model,
                 ]);
-                }
             }
-
         }
-
+    }
 
     /**
      * Delete an existing InvProductSuppliers model.
@@ -274,28 +260,26 @@ class ProductsuppliersController extends Controller
      * @return mixed
      */
     public function actionDelete($id)
-        {
+    {
         $request = Yii::$app->request;
         $this->findModel($id)->delete();
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-            }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             return $this->redirect(['index']);
-            }
-
         }
-
+    }
 
     /**
      * Delete multiple existing InvProductSuppliers model.
@@ -305,7 +289,7 @@ class ProductsuppliersController extends Controller
      * @return mixed
      */
     public function actionBulkDelete()
-        {
+    {
         $request = Yii::$app->request;
         $pks = explode(',', $request->post('pks')); // Array or selected records primary keys
         foreach ($pks as $pk)
@@ -315,23 +299,21 @@ class ProductsuppliersController extends Controller
         }
 
         if ($request->isAjax)
-            {
+        {
             /*
              *   Process for ajax request
              */
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ['forceClose' => true, 'forceReload' => '#crud-datatable-pjax'];
-            }
+        }
         else
-            {
+        {
             /*
              *   Process for non-ajax request
              */
             return $this->redirect(['index']);
-            }
-
         }
-
+    }
 
     /**
      * Finds the InvProductSuppliers model based on its primary key value.
@@ -341,18 +323,15 @@ class ProductsuppliersController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
-        {
+    {
         if (($model = InvProductSuppliers::findOne($id)) !== null)
-            {
+        {
             return $model;
-            }
-        else
-            {
-            throw new NotFoundHttpException('The requested page does not exist.');
-            }
-
         }
-
-
+        else
+        {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
+}

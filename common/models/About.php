@@ -16,6 +16,7 @@ use Yii;
  */
 class About extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -41,11 +42,11 @@ class About extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tell' => 'Tell',
-            'tell2' => 'Tell2',
-            'address' => 'Address',
-            'lat' => 'Lat',
-            'lng' => 'Lng',
+            'tell' => 'تلفن',
+            'tell2' => 'تلفن ۲',
+            'address' => 'آدرس',
+            'lat' => 'طول جغرافیایی',
+            'lng' => 'عرض جغرافیایی',
         ];
     }
 
@@ -57,4 +58,5 @@ class About extends \yii\db\ActiveRecord
     {
         return new AboutQuery(get_called_class());
     }
+
 }

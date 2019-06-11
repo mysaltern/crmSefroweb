@@ -17,6 +17,7 @@ use Yii;
  */
 class Page extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -45,12 +46,12 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'summary' => 'Summary',
-            'desc' => 'Desc',
-            'active' => 'Active',
-            'photo' => 'Photo',
-            'time' => 'Time',
+            'title' => 'موضوع',
+            'summary' => 'خلاصه',
+            'desc' => 'توضیح',
+            'active' => 'وضعیت',
+            'photo' => 'عکس',
+            'time' => 'زمان',
         ];
     }
 
@@ -62,4 +63,5 @@ class Page extends \yii\db\ActiveRecord
     {
         return new PageQuery(get_called_class());
     }
+
 }

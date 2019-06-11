@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -11,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'code')->textInput() ?>
+
 
     <?= $form->field($model, 'name')->textInput() ?>
 
@@ -21,23 +22,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'active')->textInput() ?>
 
-    <?= $form->field($model, 'deleted')->textInput() ?>
 
-    <?= $form->field($model, 'createdTime')->textInput() ?>
 
-    <?= $form->field($model, 'modifiedTime')->textInput() ?>
+    <?php if (!Yii::$app->request->isAjax)
+    {
+        ?>
+        <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    <?php } ?>
 
-    <?= $form->field($model, 'createdBy')->textInput() ?>
+<?php ActiveForm::end(); ?>
 
-    <?= $form->field($model, 'modifiedBy')->textInput() ?>
-
-  
-	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
-	<?php } ?>
-
-    <?php ActiveForm::end(); ?>
-    
 </div>

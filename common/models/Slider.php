@@ -16,6 +16,7 @@ use Yii;
  */
 class Slider extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -41,10 +42,10 @@ class Slider extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'desc' => 'Desc',
+            'title' => 'نام',
+            'desc' => 'توضیح',
             'active' => 'Active',
-            'order' => 'Order',
+            'order' => 'ترتیب',
             'url' => 'Url',
         ];
     }
@@ -57,4 +58,5 @@ class Slider extends \yii\db\ActiveRecord
     {
         return new SliderQuery(get_called_class());
     }
+
 }

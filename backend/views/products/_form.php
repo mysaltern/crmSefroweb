@@ -21,7 +21,6 @@ if (!isset($path))
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
-    <?= $form->field($model, 'code')->textInput() ?>
 
     <?= $form->field($model, 'name')->textInput() ?>
 
@@ -44,11 +43,11 @@ if (!isset($path))
 
 
     <?php
-    $dataPost = ArrayHelper::map(\common\models\InvProductSharedCodes::find()->asArray()->all(), 'id', 'name');
-    echo $form->field($model, 'invProductSharedCodeID')
-            ->dropDownList(
-                    $dataPost, ['id' => 'proShared']
-    );
+//    $dataPost = ArrayHelper::map(\common\models\InvProductSharedCodes::find()->asArray()->all(), 'id', 'name');
+//    echo $form->field($model, 'invProductSharedCodeID')
+//            ->dropDownList(
+//                    $dataPost, ['id' => 'proShared']
+//    );
     ?>
     <?php
     $dataPost = ArrayHelper::map(\common\models\InvProductTypes::find()->asArray()->all(), 'id', 'name');
@@ -97,11 +96,17 @@ if (!isset($path))
         'options' => ['rows' => 6],
         'language' => 'fa',
         'clientOptions' => [
+//            'theme' => 'modern',
+//            'skin' => 'lightgray-gradient', //charcoal, tundora, lightgray-gradient, lightgray
+            'image_advtab' => true,
             'plugins' => [
-                "advlist autolink lists link charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
+                "advlist autolink lists link image charmap print preview hr anchor pagebreak placeholder",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime media nonbreaking save table contextmenu directionality",
+                "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc noneditable",
             ],
+            'toolbar1' => "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            'toolbar2' => "print preview media | forecolor backcolor emoticons | codesample",
             'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         ]
     ]);

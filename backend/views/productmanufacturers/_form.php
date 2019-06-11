@@ -1,36 +1,31 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
 
 /* @var $this yii\web\View */
 /* @var $model app\models\InvProductManufacturers */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="inv-product-manufacturers-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
 
     <?= $form->field($model, 'name')->textInput() ?>
 
-    <?= $form->field($model, 'code')->textInput() ?>
 
 
-
-    <?php if (!Yii::$app->request->isAjax)
-        {
-
-        ?>
+<?php
+if (!Yii::$app->request->isAjax)
+{
+    ?>
         <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
-    <?php } ?>
+        <?php } ?>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
