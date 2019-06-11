@@ -42,8 +42,9 @@
                                 ['label' => 'اخبار', 'icon' => 'far fa-newspaper', 'url' => ['./news/index'],],
                                 ['label' => 'مقالات', 'icon' => 'fas fa-newspaper', 'url' => ['./article/index'],],
                                 ['label' => 'صفحات', 'icon' => 'far fa-file', 'url' => ['./page/index'],],
-                                ['label' => 'درباره ما', 'icon' => 'circle-o', 'url' => ['./about/update'],],
+                                ['label' => 'تماس با ما', 'icon' => 'circle-o', 'url' => ['./about/update'],],
                                 ['label' => 'منو', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./menu'],],
+                                ['label' => 'نظرات', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./comment/manage/index'],],
 //                                ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
                                 ['label' => 'آپلود سنتر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./filemanager'],],
 //                                ['label' => 'گالری', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
@@ -59,7 +60,7 @@
                                 ['label' => 'ویژگی ', 'icon' => 'circle-o', 'url' => ['./specification/index'],],
                                 ['label' => 'شکل محصول ', 'icon' => 'circle-o', 'url' => ['./productshapes/index'],],
                                 ['label' => 'تامین  کننده', 'icon' => 'circle-o', 'url' => ['./productsuppliers/index'],],
-                                ['label' => 'وارد کننده', 'icon' => 'circle-o', 'url' => ['./productmanufacturers/index'],],
+                                ['label' => 'تولید کننده', 'icon' => 'circle-o', 'url' => ['./productmanufacturers/index'],],
                                 [
                                     'label' => 'قیمت گذاری و تخفیفات',
                                     'icon' => 'circle-o',
@@ -87,7 +88,7 @@
                             'items' => [
                                 ['label' => 'بازدید ها', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./logvisitor'],],
                                 ['label' => 'کاربران', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./user/admin'],],
-                                ['label' => 'تنظیمات', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./article/index'],],
+                           //     ['label' => 'تنظیمات', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./article/index'],],
                             ],
                         ],
                         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
