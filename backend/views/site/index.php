@@ -4,8 +4,65 @@ use dosamigos\chartjs\ChartJs;
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'فراز اندیشان';
 ?>
+
+
+<div class="col-lg-3 col-xs-6">
+
+    <div class="small-box bg-green">
+        <div class="inner">
+            <h3><?= $commentsCount; ?><sup style="font-size: 20px"></sup></h3>
+            <p>نظرات</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-xs-6">
+
+    <div class="small-box bg-aqua">
+        <div class="inner">
+            <h3><?= $users; ?></h3>
+            <p>کاربر ثبت نام کرده</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-xs-6">
+
+    <div class="small-box bg-yellow">
+        <div class="inner">
+            <h3><?= $order; ?></h3>
+            <p>فروش جذیذ</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-xs-6">
+
+    <div class="small-box bg-red">
+        <div class="inner">
+            <h3>۶۵</h3>
+            <p>بازدید  </p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+    </div>
+</div>
+
+
+
 <div class="height-control">
 
     <div class="row">
@@ -27,7 +84,12 @@ $this->title = 'My Yii Application';
         ?>
 
 
+        <?php
+        $arr = Yii::$app->mycomponent->last7Day(true);
 
+        $sle = \common\models\SleOrders::orderWithDay();
+        $visit = \common\models\Logvisitor::orderWithDay();
+        ?>
         <div class="col-lg-6">
             <?=
             ChartJs::widget([
@@ -37,85 +99,32 @@ $this->title = 'My Yii Application';
                     'width' => 200
                 ],
                 'data' => [
-                    'labels' => ["January", "February", "March", "April", "May", "June", "July"],
+                    'labels' => $arr,
                     'datasets' => [
                         [
-                            'label' => "My First dataset",
+                            'label' => "نمودار فروش",
                             'backgroundColor' => "rgba(179,181,198,0.2)",
                             'borderColor' => "rgba(179,181,198,1)",
                             'pointBackgroundColor' => "rgba(179,181,198,1)",
                             'pointBorderColor' => "#fff",
                             'pointHoverBackgroundColor' => "#fff",
                             'pointHoverBorderColor' => "rgba(179,181,198,1)",
-                            'data' => [65, 59, 90, 81, 56, 55, 40]
+                            'data' => $sle
                         ],
                         [
-                            'label' => "My Second dataset",
+                            'label' => "نمودار بازدید",
                             'backgroundColor' => "rgba(255,99,132,0.2)",
                             'borderColor' => "rgba(255,99,132,1)",
                             'pointBackgroundColor' => "rgba(255,99,132,1)",
                             'pointBorderColor' => "#fff",
                             'pointHoverBackgroundColor' => "#fff",
                             'pointHoverBorderColor' => "rgba(255,99,132,1)",
-                            'data' => [28, 48, 40, 19, 96, 27, 100]
+                            'data' => $visit
                         ]
                     ]
                 ]
             ]);
             ?>
         </div>
-    </div>
-</div>
-
-<div class="col-lg-3 col-xs-6">
-
-    <div class="small-box bg-green">
-        <div class="inner">
-            <h3>۵۳<sup style="font-size: 20px">%</sup></h3>
-            <p>نظرات</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-stats-bars"></i>
-        </div>
-        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-    </div>
-</div>
-<div class="col-lg-3 col-xs-6">
-
-    <div class="small-box bg-yellow">
-        <div class="inner">
-            <h3>۴۴</h3>
-            <p>کاربر ثبت نام کرده</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-person-add"></i>
-        </div>
-        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-    </div>
-</div>
-<div class="col-lg-3 col-xs-6">
-
-    <div class="small-box bg-yellow">
-        <div class="inner">
-            <h3>۴۴</h3>
-            <p>فروش جذیذ</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-person-add"></i>
-        </div>
-        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-    </div>
-</div>
-<div class="col-lg-3 col-xs-6">
-
-    <div class="small-box bg-red">
-        <div class="inner">
-            <h3>۶۵</h3>
-            <p>بازدید کننده یکتا</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-        </div>
-        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
     </div>
 </div>

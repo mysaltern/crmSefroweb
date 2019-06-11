@@ -167,7 +167,7 @@ class SleOrders extends \yii\db\ActiveRecord
 
     public function allOrder()
     {
-        $model = SleOrders::find()->where(['deleted' => 0])->count();
+        $model = SleOrders::find()->where(['deleted' => NULL])->count();
 
         return $model;
     }
@@ -195,6 +195,19 @@ class SleOrders extends \yii\db\ActiveRecord
         $model2 = SleOrders::find()->where(['deleted' => 0])->count();
 
         return $model2 - $model;
+    }
+
+    public function orderWithDay($day = 0)
+    {
+        for ($i = 6; $i >= 0; $i--)
+        {
+            $startdate1 = date("Y-m-d", strtotime("-$i days"));
+            $start = "$startdate1 00:00:00.000";
+            $ent = "$startdate1 23:59:59.000";
+            $query[] = SleOrders::find()->where(['between', 'createdTime', $start, $ent])->asArray()->count();
+        }
+
+        return $query;
     }
 
 }

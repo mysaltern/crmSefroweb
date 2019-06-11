@@ -7,8 +7,10 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\db\Query;
 use SoapClient;
+use hoomanMirghasemi\jdf\Jdf;
 
 //       Yii::$app->mycomponent->getStatus();
+//       Yii::$app->mycomponent->last7Day();
 class MyComponent extends Component
 {
 
@@ -153,6 +155,32 @@ class MyComponent extends Component
         else
         {
             return 'نا مشخص';
+        }
+    }
+
+    public function last7Day($name = false)
+    {
+
+        $d = Jdf::jgetdate(-1);
+        $name = [];
+        for ($i = 6; $i >= 0; $i--)
+        {
+
+            $timeG = mktime(0, 0, 0, date("m"), date("d") - $i, date("Y"));
+            $time[$i]['time'] = $timeG;
+            $time[$i]['day'] = Jdf::jgetdate($timeG);
+
+            $name[] = $time[$i]['day']['weekday'];
+        }
+
+
+        if ($name != true)
+        {
+            return $time;
+        }
+        else
+        {
+            return $name;
         }
     }
 

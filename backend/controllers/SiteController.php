@@ -65,9 +65,16 @@ class SiteController extends Controller
 
 
         $comments = \common\models\Comment::find()->asArray()->orderBy('id asc')->limit(20)->all();
+        $commentsCount = \common\models\Comment::find()->where(['status' => 2])->asArray()->count();
+        $users = \common\models\User::find()->asArray()->count();
+
+        $order = \common\models\SleOrders::allOrder();
 
         return $this->render('index', [
                     'comments' => $comments,
+                    'order' => $order,
+                    'users' => $users,
+                    'commentsCount' => $commentsCount,
         ]);
     }
 

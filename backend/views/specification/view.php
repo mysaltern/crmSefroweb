@@ -1,17 +1,13 @@
 <?php
 
-
 use yii\widgets\DetailView;
-
 
 /* @var $this yii\web\View */
 /* @var $model app\models\InvProductSpecificationTypes */
-
 ?>
 <div class="inv-product-specification-types-view">
 
     <?=
-
     DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -22,7 +18,21 @@ use yii\widgets\DetailView;
             'isDecimal',
             'isSelection',
             'isBit',
-            'active',
+            [
+                'attribute' => 'active',
+                'value' => function ($data)
+                {
+
+                    if ($data->active == 1)
+                    {
+                        return 'فعال';
+                    }
+                    else
+                    {
+                        return 'غیر فعال';
+                    }
+                },
+            ],
 //            'deleted',
 //            'createdTime',
 //            'modifiedTime',
@@ -30,7 +40,6 @@ use yii\widgets\DetailView;
 //            'modifiedBy',
         ],
     ])
-
     ?>
 
 </div>
