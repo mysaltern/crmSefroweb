@@ -5,19 +5,18 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\About */
 
-$this->title = Yii::t('app', 'Update About: {name}', [
-    'name' => $model->id,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Abouts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->title = Yii::t('app', 'ویرایش تماس با ما', [
+            'name' => '',
+        ]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'تماس با ما'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = Yii::t('app', 'ویرایش');
 ?>
 <div class="about-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+    <?=
+    $this->render('_form', [
         'model' => $model,
-    ]) ?>
+    ])
+    ?>
 
 </div>

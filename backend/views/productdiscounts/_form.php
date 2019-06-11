@@ -20,18 +20,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'expirationTime')->textInput() ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+
+    <?php
+    $item = array('0' => 'deactive', '1' => 'active');
+    ?>
+    <?= $form->field($model, 'active')->dropDownList($item) ?>
 
 
-
-    <?php if (!Yii::$app->request->isAjax)
+    <?php
+    if (!Yii::$app->request->isAjax)
     {
         ?>
         <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     <?php } ?>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

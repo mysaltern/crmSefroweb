@@ -108,7 +108,7 @@ class AboutController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
-            Yii::$app->session->setFlash('success', "About saved !");
+            Yii::$app->session->setFlash('success', "ویرایش با موفقیت انجام شد ");
             return $this->redirect(['update']);
         }
 

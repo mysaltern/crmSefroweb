@@ -1,15 +1,13 @@
 <?php
 
-
 use yii\helpers\Url;
 
-
 return [
-        [
+    [
         'class' => 'kartik\grid\CheckboxColumn',
         'width' => '20px',
     ],
-        [
+    [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
@@ -21,21 +19,21 @@ return [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'code',
     ],
-        [
+    [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'name',
     ],
-        [
+    [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'نام تولید کننده',
         'value' => 'invProductManufacturer.name',
     ],
-        [
+    [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'نام تامین کننده',
         'value' => 'invProductSupplier.name',
     ],
-        [
+    [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'invProductSharedCodeID',
     ],
@@ -60,8 +58,18 @@ return [
 // 'attribute'=>'description',
 // ],
     [
-        'class' => '\kartik\grid\DataColumn',
         'attribute' => 'active',
+        'value' => function($model)
+        {
+            if ($model->active == 1)
+            {
+                return 'active';
+            }
+            else
+            {
+                return 'deactive';
+            }
+        },
     ],
     // [
 // 'class'=>'\kartik\grid\DataColumn',
@@ -88,9 +96,9 @@ return [
         'dropdown' => false,
         'vAlign' => 'middle',
         'urlCreator' => function($action, $model, $key, $index)
-            {
+        {
             return Url::to([$action, 'id' => $key]);
-            },
+        },
         'viewOptions' => ['role' => 'modal-remote', 'title' => 'View', 'data-toggle' => 'tooltip'],
         'updateOptions' => ['role' => 'modal-remote', 'title' => 'Update', 'data-toggle' => 'tooltip'],
         'deleteOptions' => ['role' => 'modal-remote', 'title' => 'Delete',

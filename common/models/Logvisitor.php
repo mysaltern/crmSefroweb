@@ -89,7 +89,7 @@ class Logvisitor extends \yii\db\ActiveRecord
             $startdate1 = strtotime("-$i days");
 //            $start = "$startdate1 00:00:00.000";
 //            $ent = "$startdate1 23:59:59.000";
-            $query[] = Logvisitor::find()->where(['between', 'time', $startdate1, $startdate1 + 86400])->asArray()->count();
+            $query[] = Logvisitor::find()->where(['between', 'time', $startdate1 - 46200, $startdate1 + 46200])->asArray()->count();
         }
 
         return $query;

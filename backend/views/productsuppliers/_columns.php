@@ -24,8 +24,18 @@ return [
         'attribute' => 'name',
     ],
     [
-        'class' => '\kartik\grid\DataColumn',
         'attribute' => 'active',
+        'value' => function($model)
+        {
+            if ($model->active == 1)
+            {
+                return 'active';
+            }
+            else
+            {
+                return 'deactive';
+            }
+        },
     ],
 //    [
 //        'class'=>'\kartik\grid\DataColumn',

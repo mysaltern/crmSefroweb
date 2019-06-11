@@ -92,7 +92,7 @@ use dosamigos\tinymce\TinyMce;
 //                    'id' => 'publish_date_',
 //                    'class' => 'form-control'
 //                ]
-    ]);
+            ])->label('تاریخ انتشار');
     ?>
     <?php
     $item = array('0' => 'deactive', '1' => 'active');
@@ -100,7 +100,7 @@ use dosamigos\tinymce\TinyMce;
     <?= $form->field($model, 'active')->dropDownList($item) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'ذخیره'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

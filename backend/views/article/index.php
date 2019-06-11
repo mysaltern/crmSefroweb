@@ -8,17 +8,16 @@ use yii\helpers\Url;
 /* @var $searchModel common\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Article');
+$this->title = Yii::t('app', 'مقالات');
 $this->params['breadcrumbs'][] = $this->title;
 // the model to which are added comments, for example:
 ?>
 <?php ?>
 <div class="Article-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Article'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'افزودن مقاله'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>

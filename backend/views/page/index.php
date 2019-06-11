@@ -7,15 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\PageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pages';
+$this->title = 'صفحه ها';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Page', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('ایجاد صفحه', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,7 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'summary',
             'desc:html',
-            'active',
+            [
+                'attribute' => 'active',
+                'value' => function($model)
+                {
+                    if ($model->active == 1)
+                    {
+                        return 'active';
+                    }
+                    else
+                    {
+                        return 'deactive';
+                    }
+                },
+            ],
             //'photo',
             //'time:datetime',
             ['class' => 'yii\grid\ActionColumn'],
