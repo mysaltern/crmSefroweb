@@ -24,6 +24,7 @@ use Yii;
  * @property string $modifiedTime
  * @property integer $createdBy
  * @property integer $modifiedBy
+ * @property string $photo
  *
  * @property InvProductCategoryRel[] $invProductCategoryRels
  * @property InvProductDiscountDetails[] $invProductDiscountDetails
@@ -59,7 +60,7 @@ class InvProducts extends \yii\db\ActiveRecord
     {
         return [
             [['code'], 'required'],
-            [['code', 'name', 'summary', 'description'], 'string'],
+            [['code', 'name', 'summary', 'photo', 'description'], 'string'],
             [['invProductManufacturerID', 'invProductSupplierID', 'invProductSharedCodeID', 'invProductTypeID', 'invProductShapeID', 'invProductCategoryID', 'active', 'deleted', 'createdBy', 'modifiedBy'], 'integer'],
             [['createdTime', 'modifiedTime'], 'safe'],
             [['invProductTypeID'], 'exist', 'skipOnError' => true, 'targetClass' => InvProductTypes::className(), 'targetAttribute' => ['invProductTypeID' => 'id']],

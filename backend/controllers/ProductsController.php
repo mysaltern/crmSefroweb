@@ -123,7 +123,7 @@ class ProductsController extends Controller
                     Html::button('ذخیره', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
             }
-            else if ($model->load($request->post()) && $model->save())
+            else if ($model->load($request->post()) && $model->save(false))
             {
 
 
@@ -150,7 +150,7 @@ class ProductsController extends Controller
                 $model->active = 1;
                 $model->createdTime = date('Y-m-d H:i:s.u');
                 $model->createdBy = Yii::$app->user->getId();
-                $model->save();
+                $model->save(false);
 
 
                 return [
@@ -178,7 +178,7 @@ class ProductsController extends Controller
             /*
              *   Process for non-ajax request
              */
-            if ($model->load($request->post()) && $model->save())
+            if ($model->load($request->post()) && $model->save(false))
             {
 
                 if ($model->file = \yii\web\UploadedFile::getInstance($model, 'file'))
