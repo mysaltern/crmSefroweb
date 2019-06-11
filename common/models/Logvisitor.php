@@ -84,8 +84,15 @@ class Logvisitor extends \yii\db\ActiveRecord
 
     public static function orderWithDay()
     {
+        for ($i = 6; $i >= 0; $i--)
+        {
+            $startdate1 = strtotime("-$i days");
+//            $start = "$startdate1 00:00:00.000";
+//            $ent = "$startdate1 23:59:59.000";
+            $query[] = Logvisitor::find()->where(['between', 'time', $startdate1, $startdate1 + 86400])->asArray()->count();
+        }
 
-        return [];
+        return $query;
     }
 
 }

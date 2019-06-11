@@ -13,7 +13,7 @@ $this->title = 'فراز اندیشان';
     <div class="small-box bg-green">
         <div class="inner">
             <h3><?= $commentsCount; ?><sup style="font-size: 20px"></sup></h3>
-            <p>نظرات</p>
+            <p>نظرات مشاهده نشده </p>
         </div>
         <div class="icon">
             <i class="ion ion-stats-bars"></i>
