@@ -1,0 +1,58 @@
+body {
+  font-family: IRANSans;
+}
+
+#about {
+  margin-bottom: 100vh !important;
+}
+
+.rtl {
+    direction: rtl;
+}
+
+.ltr {
+    direction: ltr;
+}
+
+.carousel-control-next {
+    left: auto;
+}
+
+.list
+{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.list__item
+{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.carousel-inner {
+  background-color: white;
+}
+
+.footer-social-icon {
+  top: 70px;
+}
+
+.navbar-brand img {
+  max-height: 63px;
+}
+
+.header_area{
+    background-color: #133f24b3;
+}
+
+.navbar-nav
+
+{
+    display: contents !important;
+}

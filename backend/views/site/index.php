@@ -39,7 +39,7 @@ $this->title = 'فراز اندیشان';
     <div class="small-box bg-yellow">
         <div class="inner">
             <h3><?= $order; ?></h3>
-            <p>فروش جذیذ</p>
+            <p>فروش جدید</p>
         </div>
         <div class="icon">
             <i class="ion ion-person-add"></i>
