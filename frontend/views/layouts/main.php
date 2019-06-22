@@ -59,35 +59,38 @@ $img = Url::base(true) . '/img';
             <div class="row align-items-center">
 
 
-                 <!-- Menu Area Start -->
-                 <div class="col-12 col-lg-12">
+                <!-- Menu Area Start -->
+                <div class="col-12 col-lg-12">
                     <div class="menu_area">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <!-- Logo -->
                             <a class="navbar-brand" href="#">
-                            <img src="img/logo.png" alt="">
+                                <img src="img/logo.png" alt="">
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar"
                                 aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span
                                     class="navbar-toggler-icon"></span></button>
                             <!-- Menu Area -->
                             <div class="collapse navbar-collapse rtl" id="ca-navbar">
+
+
+                                <!-- واسه منو این یه تیکه رو تغییر بده -->
                                 <ul class="navbar-nav" id="nav">
+                                    <!-- نمونه منو ساده -->
                                     <li class="nav-item active"><a class="nav-link" href="/index.php">خانه</a></li>
-                                   
+
+                                    <!-- منو زیر منو دار -->
                                     <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">خدمات ما</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="umiho.php">یو می هو تراپی</a>
-                                        <a class="dropdown-item" href="niddle.php">طب سوزنی</a>
-                                        <a class="dropdown-item" href="consultation.php">مشاوره و روانشناسی</a>
-                                        <a class="dropdown-item" href="workshop.php">كارگاه هاي شناخت طرحواره</a>
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                                            role="button" aria-haspopup="true" aria-expanded="false">خدمات ما</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="umiho.php">یو می هو تراپی</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="actions.php">حركات اصلاحی</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="about.php">درباره ما</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="contact.php">تماس با ما</a></li>
 
                                 </ul>
+                                <!-- واسه منو این یه تیکه رو تغییر بده -->
+
+
 
                             </div>
                         </nav>
