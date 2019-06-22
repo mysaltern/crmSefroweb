@@ -48,70 +48,33 @@ $this->title = 'My Yii Application';
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="img/p1.jpg" alt="">
-                        <div class="team-hover-effects">
-                            <div class="team-social-icon">
-                                <a href="#"><i class="fa fa-link " aria-hidden="true"></i></a>
+
+            <?php
+            foreach ($article as $ar)
+            {
+                $photo = Yii::$app->urlManager->createAbsoluteUrl(['/file', 'id' => $ar['photo']]);
+                ?>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="single-team-member">
+                        <div class="member-image">
+                            <img src="<?= $photo; ?>" alt="">
+                            <div class="team-hover-effects">
+                                <div class="team-social-icon">
+                                    <a href="#"><i class="fa fa-link " aria-hidden="true"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="member-text">
-                        <h4>متن عنوان</h4>
-                        <p>خلاصه متن توضیحات مختصر در مورد مقاله مربوطه که از چند خط تجاوز نمیکند</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="img/p2.jpg" alt="">
-                        <div class="team-hover-effects">
-                            <div class="team-social-icon">
-                                <a href="#"><i class="fa fa-link " aria-hidden="true"></i></a>
-                            </div>
+                        <div class="member-text">
+                            <h4><?= $ar['title']; ?></h4>
+                            <p><?= $ar['content']; ?></p>
                         </div>
                     </div>
-                    <div class="member-text">
-                        <h4>متن عنوان</h4>
-                        <p>خلاصه متن توضیحات مختصر در مورد مقاله مربوطه که از چند خط تجاوز نمیکند</p>
-                    </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="img/p3.jpg" alt="">
-                        <div class="team-hover-effects">
-                            <div class="team-social-icon">
-                                <a href="#"><i class="fa fa-link " aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-text">
-                        <h4>متن عنوان</h4>
-                        <p>خلاصه متن توضیحات مختصر در مورد مقاله مربوطه که از چند خط تجاوز نمیکند</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="img/p4.jpg" alt="">
-                        <div class="team-hover-effects">
-                            <div class="team-social-icon">
-                                <a href="#"><i class="fa fa-link " aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-text">
-                        <h4>متن عنوان</h4>
-                        <p>خلاصه متن توضیحات مختصر در مورد مقاله مربوطه که از چند خط تجاوز نمیکند</p>
-                    </div>
-                </div>
-            </div>
+                <?php
+            }
+            ?>
+
+
         </div>
     </div>
 </section>
@@ -240,7 +203,7 @@ $this->title = 'My Yii Application';
 <!-- ***** Footer Area Start ***** -->
 <footer class="footer-social-icon text-center clearfix">
     <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d809.2938973299771!2d51.35321942920047!3d35.77106289876085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e070340c325e3%3A0x358aede3859e2d30!2z2YXYsdqp2LIg2KrZhtiv2LHYs9iq24wg2YfZhdin24w!5e0!3m2!1sen!2s!4v1555148616643!5m2!1sen!2s" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d809.2938973299771!2d71.35321942920047!3d50.77106289876085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e070340c325e3%3A0x358aede3859e2d30!2z2YXYsdqp2LIg2KrZhtiv2LHYs9iq24wg2YfZhdin24w!5e0!3m2!1sen!2s!4v1555148616643!5m2!1sen!2s" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
 
 

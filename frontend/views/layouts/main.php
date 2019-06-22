@@ -18,137 +18,126 @@ $img = Url::base(true) . '/img';
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
 
 
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <!-- Title -->
-    <title>مرکز تندرستی همای</title>
+        <!-- Title -->
+        <title>مرکز تندرستی همای</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="<?= $img; ?>/core-img/favicon.ico">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!-- Favicon -->
+        <link rel="icon" href="<?= $img; ?>/core-img/favicon.ico">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+              integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <!-- Core Stylesheet -->
-    <link href="<?= $css; ?>/style.css" rel="stylesheet">
+        <!-- Core Stylesheet -->
+        <link href="<?= $css; ?>/style.css" rel="stylesheet">
 
-    <!-- Responsive CSS -->
-    <link href="<?= $css; ?>/responsive.css" rel="stylesheet">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-
-
-</head>
+        <!-- Responsive CSS -->
+        <link href="<?= $css; ?>/responsive.css" rel="stylesheet">
+        <?php $this->registerCsrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
 
 
-<body>
+    </head>
 
 
-
-
-
-    <header class="header_area animated">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-
-
-                <!-- Menu Area Start -->
-                <div class="col-12 col-lg-12">
-                    <div class="menu_area">
-                        <nav class="navbar navbar-expand-lg navbar-light">
-                            <!-- Logo -->
-                            <a class="navbar-brand" href="#">
-                                <img src="img/logo.png" alt="">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar"
-                                aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span
-                                    class="navbar-toggler-icon"></span></button>
-                            <!-- Menu Area -->
-                            <div class="collapse navbar-collapse rtl" id="ca-navbar">
-
-
-                                <!-- واسه منو این یه تیکه رو تغییر بده -->
-                                <ul class="navbar-nav" id="nav">
-                                    <!-- نمونه منو ساده -->
-                                    <li class="nav-item active"><a class="nav-link" href="/index.php">خانه</a></li>
-
-                                    <!-- منو زیر منو دار -->
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                                            role="button" aria-haspopup="true" aria-expanded="false">خدمات ما</a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="umiho.php">یو می هو تراپی</a>
-                                    </li>
-
-                                </ul>
-                                <!-- واسه منو این یه تیکه رو تغییر بده -->
+    <body>
 
 
 
-                            </div>
-                        </nav>
+
+
+        <header class="header_area animated">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+
+
+                    <!-- Menu Area Start -->
+                    <div class="col-12 col-lg-12">
+                        <div class="menu_area">
+                            <nav class="navbar navbar-expand-lg navbar-light">
+                                <!-- Logo -->
+                                <a class="navbar-brand" href="#">
+                                    <img src="img/logo.png" alt="">
+                                </a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar"
+                                        aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span
+                                        class="navbar-toggler-icon"></span></button>
+                                <!-- Menu Area -->
+                                <div class="collapse navbar-collapse rtl" id="ca-navbar">
+
+
+                                    <!-- واسه منو این یه تیکه رو تغییر بده -->
+
+                                    <?php
+                                    echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right'],
+                                        'items' => Menu::NavbarRight(5)  // argument is id of menu
+                                    ]);
+                                    ?>
+                                    <!-- واسه منو این یه تیکه رو تغییر بده -->
+
+
+
+                                </div>
+                            </nav>
+                        </div>
                     </div>
-                </div>
 
-                <!-- ***** Header Area End ***** -->
-                <?php
-                    echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right'],
-                        'items' => Menu::NavbarRight(5)  // argument is id of menu
-                    ]);
-                    ?>
+                    <!-- ***** Header Area End ***** -->
+
+                </div>
+            </div>
+        </header>
+
+
+
+
+
+
+        <?= $content ?>
+
+
+
+
+
+
+        <div class="h-100">
+            <!-- footer logo -->
+            <div class="footer-text">
+                <h2>HOMAAY</h2>
+            </div>
+            <!-- social icon-->
+            <div class="footer-social-icon rtl">
+                <a href="#"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                <a href="#"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+            </div>
+            <div class="footer-menu rtl">
+                <nav>
+                    <ul>
+                        <li><a href="#">درباره ما</a></li>
+                        <li><a href="#">قوانین و مقررات</a></li>
+                        <li><a href="#">حریم خصوصی</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Foooter Text-->
+            <div class="copyright-text clearfix">
+                <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** -->
+                <p>تمامی حقوق این وب سایت برای مركز تندرستی همای محفوظ است </p>
+                <p> طراحی و پیاده سازی توسط <a href="#" target="_blank">صباسامانه</a></p>
+                </br>
             </div>
         </div>
-    </header>
-
-
-
-
-
-
-    <?= $content ?>
-
-
-
-
-
-
-    <div class="h-100">
-        <!-- footer logo -->
-        <div class="footer-text">
-            <h2>HOMAAY</h2>
-        </div>
-        <!-- social icon-->
-        <div class="footer-social-icon rtl">
-            <a href="#"><i class="fa fa-telegram" aria-hidden="true"></i></a>
-            <a href="#"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-        </div>
-        <div class="footer-menu rtl">
-            <nav>
-                <ul>
-                    <li><a href="#">درباره ما</a></li>
-                    <li><a href="#">قوانین و مقررات</a></li>
-                    <li><a href="#">حریم خصوصی</a></li>
-                    <li><a href="#">تماس با ما</a></li>
-                </ul>
-            </nav>
-        </div>
-        <!-- Foooter Text-->
-        <div class="copyright-text clearfix">
-            <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** -->
-            <p>تمامی حقوق این وب سایت برای مركز تندرستی همای محفوظ است </p>
-            <p> طراحی و پیاده سازی توسط <a href="#" target="_blank">صباسامانه</a></p>
-            </br>
-        </div>
-    </div>
 
     </footer>
     <!-- ***** Footer Area Start ***** -->
