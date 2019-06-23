@@ -356,7 +356,7 @@ p {
     z-index: 2;
 }
 
-.menu_area #nav .nav-link {
+.menu_area #nav > li > a {
     color: #fff;
     display: block;
     font-size: 16px;
@@ -414,13 +414,25 @@ p {
     font-size: 50px;
 }
 
-.header_area.sticky .menu_area #nav .nav-link {
+.header_area.sticky .menu_area #nav > li > a {
     padding: 23px 15px;
 }
 .header_area.sticky .navbar {
     padding: 0;
 }
 
+#nav li > ul > li > a {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
 
 /* --------------------------
 :: 3.0 Wellcome Area CSS
