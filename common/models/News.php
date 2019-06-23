@@ -77,4 +77,22 @@ class News extends \yii\db\ActiveRecord
         return new NewsQuery(get_called_class());
     }
 
+    public static function index($limit, $type, $category, $where)
+    {
+
+
+
+        $itemsQuery = News::find()->where(['active' => '1']);
+        if ($limit > 0)
+        {
+            $itemsQuery->limit($limit);
+        }
+        if ($type == 'article')
+        {
+            $itemsQuery->andWhere(['article' => '1']);
+        }
+        $items = $itemsQuery->asArray()->all();
+        return $items;
+    }
+
 }
