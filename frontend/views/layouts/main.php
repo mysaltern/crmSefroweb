@@ -74,12 +74,11 @@ $img = Url::base(true) . '/img';
                             <div class="collapse navbar-collapse rtl" id="ca-navbar">
 
 
-                                <!-- واسه منو این یه تیکه رو تغییر بده -->
-                                <ul class="navbar-nav" id="nav">
-                                    <!-- نمونه منو ساده -->
-                                    <li class="nav-item active"><a class="nav-link" href="/index.php">خانه</a></li>
+                                <!-- <ul class="navbar-nav" id="nav">
+                                    <li class="nav-item active">
+                                    <a class="nav-link" href="/index.php">خانه</a>
+                                    </li>
 
-                                    <!-- منو زیر منو دار -->
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
                                             role="button" aria-haspopup="true" aria-expanded="false">خدمات ما</a>
@@ -87,8 +86,12 @@ $img = Url::base(true) . '/img';
                                             <a class="dropdown-item" href="umiho.php">یو می هو تراپی</a>
                                     </li>
 
-                                </ul>
-                                <!-- واسه منو این یه تیکه رو تغییر بده -->
+                                </ul> -->
+                                <?php
+                                    echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right', 'id' => 'nav'],
+                                        'items' => Menu::NavbarRight(6)  // argument is id of menu
+                                    ]);
+                                ?>
 
 
 
@@ -98,11 +101,7 @@ $img = Url::base(true) . '/img';
                 </div>
 
                 <!-- ***** Header Area End ***** -->
-                <?php
-                    echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right'],
-                        'items' => Menu::NavbarRight(5)  // argument is id of menu
-                    ]);
-                    ?>
+
             </div>
         </div>
     </header>
