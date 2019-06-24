@@ -1,4 +1,7 @@
 <?php
+
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -77,8 +80,11 @@ $this->title = 'My Yii Application';
         <div class="row">
             <div class="col-12 text-center">
                 <!-- Heading Text  -->
+                <?php
+                $articleURL = Url::to(['article/index']);
+                ?>
                 <div class="section-heading">
-                    <h2>مقالات</h2>
+                    <h2><a href="<?= $articleURL; ?>">مقالات</a></h2>
                     <div class="line-shape"></div>
                 </div>
             </div>
@@ -89,6 +95,7 @@ $this->title = 'My Yii Application';
             foreach ($article as $ar)
             {
                 $photo = Yii::$app->urlManager->createAbsoluteUrl(['/file', 'id' => $ar['photo']]);
+                $urlDetailsArticle = Url::to(['article/view', 'id' => $ar['id']]);
                 ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="single-team-member">
@@ -96,7 +103,7 @@ $this->title = 'My Yii Application';
                             <img src="<?= $photo; ?>" alt="">
                             <div class="team-hover-effects">
                                 <div class="team-social-icon">
-                                    <a href="#"><i class="fa fa-link " aria-hidden="true"></i></a>
+                                    <a href="<?= $urlDetailsArticle; ?>"><i class="fa fa-link " aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>

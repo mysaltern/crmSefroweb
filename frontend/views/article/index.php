@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\widgets\LinkPager;
 ?>
 
@@ -13,6 +14,7 @@ use yii\widgets\LinkPager;
         $summary = $model['content'];
         $summary = strip_tags("$summary");
         $summary = \Yii::$app->frontend->truncateStringWords($summary, 50);
+        $url = Url::to(['article/view', 'id' => $model['id']]);
         ?>
 
 
@@ -20,7 +22,7 @@ use yii\widgets\LinkPager;
             <img src="<?= $photo; ?>" />
             <p><?php echo $model['title']; ?> </p>
             <p><?php echo $summary; ?> </p>
-
+            <a href="<?= $url; ?>">ادامه</a>
         </div>
 
         <?php
