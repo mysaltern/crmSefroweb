@@ -44,15 +44,8 @@ $img = Url::base(true) . '/img';
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
 
-
     </head>
-
-
     <body>
-
-
-
-
 
         <header class="header_area animated">
             <div class="container-fluid">
@@ -74,24 +67,12 @@ $img = Url::base(true) . '/img';
                                 <div class="collapse navbar-collapse rtl" id="ca-navbar">
 
 
-                                <!-- <ul class="navbar-nav" id="nav">
-                                    <li class="nav-item active">
-                                    <a class="nav-link" href="/index.php">خانه</a>
-                                    </li>
 
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                                            role="button" aria-haspopup="true" aria-expanded="false">خدمات ما</a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="umiho.php">یو می هو تراپی</a>
-                                    </li>
-
-                                </ul> -->
-                                <?php
+                                    <?php
                                     echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right', 'id' => 'nav'],
-                                        'items' => Menu::NavbarRight(6)  // argument is id of menu
+                                        'items' => Menu::NavbarRight(5)  // argument is id of menu
                                     ]);
-                                ?>
+                                    ?>
 
 
                                 </div>
@@ -99,20 +80,14 @@ $img = Url::base(true) . '/img';
                         </div>
                     </div>
 
-                <!-- ***** Header Area End ***** -->
+                    <!-- ***** Header Area End ***** -->
 
-            </div>
+                </div>
         </header>
 
 
 
-
-
-
         <?= $content ?>
-
-
-
 
 
 

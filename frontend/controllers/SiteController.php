@@ -78,9 +78,11 @@ class SiteController extends Controller
     {
 
         $article = \common\models\News::index(4, 'article', $category = null, $where = null);
+        $slider = \common\models\Slider::index(4);
 
         return $this->render('index', [
                     'article' => $article,
+                    'slider' => $slider,
         ]);
     }
 

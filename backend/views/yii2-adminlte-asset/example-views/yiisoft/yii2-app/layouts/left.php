@@ -45,7 +45,7 @@
                                 ['label' => 'تماس با ما', 'icon' => 'fas fa-phone', 'url' => ['./about/update'],],
                                 ['label' => 'منو', 'icon' => 'fas fa-tachometer-alt', 'url' => ['./menu'],],
                                 ['label' => 'نظرات', 'icon' => 'far fa-comments', 'url' => ['./comment/manage/index'],],
-//                                ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
+                                ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./slider/index'],],
                                 ['label' => 'آپلود سنتر', 'icon' => 'fas fa-file-upload', 'url' => ['./filemanager'],],
 //                                ['label' => 'گالری', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
                             ],
@@ -88,7 +88,7 @@
                             'items' => [
                                 ['label' => 'بازدید ها', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./logvisitor'],],
                                 ['label' => 'کاربران', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./user/admin'],],
-                           //     ['label' => 'تنظیمات', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./article/index'],],
+                            //     ['label' => 'تنظیمات', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['./article/index'],],
                             ],
                         ],
                         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

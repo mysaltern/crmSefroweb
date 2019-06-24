@@ -10,17 +10,53 @@ $this->title = 'My Yii Application';
 <section class="wellcome_area clearfix" id="home">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <?php
+            $x = 0;
+            foreach ($slider as $slide)
+            {
+                $x++;
+                if ($x == 1)
+                {
+                    $css = 'active';
+                }
+                else
+                {
+                    $css = '';
+                }
+                ?>
+                <li data-target = "#carouselExampleIndicators" data-slide-to = "<?= $x ?>" class = "<?= $css ?>"></li>
+
+                <?php
+            }
+            ?>
+
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="img/1.jpg" alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="img/2.jpg" alt="Second slide">
-            </div>
+
+            <?php
+            $x = 0;
+            foreach ($slider as $slide)
+            {
+                $x++;
+                $photo = Yii::$app->urlManager->createAbsoluteUrl(['/file', 'id' => $slide['url']]);
+
+                if ($x == 1)
+                {
+                    $css = 'active';
+                }
+                else
+                {
+                    $css = '';
+                }
+                ?>
+
+                <div class="carousel-item <?= $css ?>">
+                    <img class="d-block w-100" src="<?php echo $photo; ?>" alt="<?php echo $slide['title']; ?>">
+                </div>
+                <?php
+            }
+            ?>
+
         </div>
         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

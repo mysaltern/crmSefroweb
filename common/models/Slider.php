@@ -11,7 +11,7 @@ use Yii;
  * @property string $title
  * @property string $desc
  * @property string $active
- * @property string $order
+ * @property int $order
  * @property string $url
  */
 class Slider extends \yii\db\ActiveRecord
@@ -31,7 +31,8 @@ class Slider extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'desc', 'active', 'order', 'url'], 'string', 'max' => 255],
+            [['order'], 'integer'],
+            [['title', 'desc', 'active', 'url'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,9 +45,11 @@ class Slider extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'نام',
             'desc' => 'توضیح',
-            'active' => 'Active',
+            'title' => 'موضوع',
+            'active' => 'وضعیت',
             'order' => 'ترتیب',
-            'url' => 'Url',
+            'url' => 'عکس',
+            'photo' => 'عکس',
         ];
     }
 
@@ -57,6 +60,21 @@ class Slider extends \yii\db\ActiveRecord
     public static function find()
     {
         return new SliderQuery(get_called_class());
+    }
+
+    public static function index($limit)
+    {
+
+
+
+        $itemsQuery = Slider::find()->where(['active' => '1'])->orderBy('order');
+        if ($limit > 0)
+        {
+            $itemsQuery->limit($limit);
+        }
+
+        $items = $itemsQuery->asArray()->all();
+        return $items;
     }
 
 }

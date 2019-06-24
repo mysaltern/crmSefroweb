@@ -14,32 +14,38 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 
 
     <?= $form->field($model, 'order')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
+    <?php
+    $action = Yii::$app->controller->action->id;
+
+
+    if ($action == 'update' and ! is_null($model->url))
+    {
+        ?>
+
+        <?= Html::img(['/file', 'id' => $model->url]) ?>
+        <?php
+    }
+    ?>
+    <?= $form->field($model, 'url')->fileInput(); ?>
 
 
 
 
     <?php
-    echo $form->field($model, 'active')->dropDownList(['0' => 'غیر فعال', '1' => ' فعال'], ['options' =>
-        [
-            $active => ['selected ' => true]
-        ]]
-            , ['prompt' => 'انتخاب']);
+    $item = array('0' => 'deactive', '1' => 'active');
     ?>
+    <?= $form->field($model, 'active')->dropDownList($item) ?>
 
-        <?php if (!Yii::$app->request->isAjax)
-        { ?>
-        <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        </div>
-    <?php } ?>
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
