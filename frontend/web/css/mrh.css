@@ -56,3 +56,12 @@ body {
 {
     display: contents !important;
 }
+
+.margin
+
+  {
+      margin-top:  150px;
+      margin-bottom:  150px;
+      top: 150px;
+
+  }

@@ -244,4 +244,4 @@ $this->title = 'My Yii Application';
 
 
 
-
+</footer>
