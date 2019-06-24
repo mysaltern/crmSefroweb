@@ -71,6 +71,10 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
 
+            if ($model->publish_date == null)
+            {
+                $model->publish_date = time();
+            }
 
             $file = \yii\web\UploadedFile::getInstance($model, 'photo');
 
@@ -108,6 +112,10 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
 
+            if ($model->publish_date == null)
+            {
+                $model->publish_date = time();
+            }
             $file = \yii\web\UploadedFile::getInstance($model, 'photo');
             if ($file != null)
             {
