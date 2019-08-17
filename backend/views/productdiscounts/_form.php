@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use faravaghi\jalaliDatePicker\jalaliDatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\InvProductDiscounts */
@@ -16,10 +17,38 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput() ?>
 
-    <?= $form->field($model, 'execTime')->textInput() ?>
-
-    <?= $form->field($model, 'expirationTime')->textInput() ?>
-
+    <?=
+            $form->field(
+                    $model, 'execTime'
+            )
+            ->widget(
+                    jalaliDatePicker::className(), [
+                'options' => array(
+                    'format' => 'yyyy/mm/dd',
+                    'viewformat' => 'yyyy/mm/dd',
+                    'placement' => 'left',
+                    'todayBtn' => 'linked',
+                    'id' => 'date',
+                    'class' => 'form-control'
+                ),
+    ]);
+    ?>
+    <?=
+            $form->field(
+                    $model, 'expirationTime'
+            )
+            ->widget(
+                    jalaliDatePicker::className(), [
+                'options' => array(
+                    'format' => 'yyyy/mm/dd',
+                    'viewformat' => 'yyyy/mm/dd',
+                    'placement' => 'left',
+                    'todayBtn' => 'linked',
+                    'id' => 'date2',
+                    'class' => 'form-control'
+                ),
+    ]);
+    ?>
 
     <?php
     $item = array('0' => 'deactive', '1' => 'active');

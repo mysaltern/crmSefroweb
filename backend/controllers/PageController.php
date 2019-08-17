@@ -8,6 +8,8 @@ use common\models\PageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -63,6 +65,44 @@ class PageController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    public function actionImageUpload()
+    {
+        $model = new WhateverYourModel();
+
+        $imageFile = UploadedFile::getInstance($model, 'photo');
+
+        $directory = Yii::getAlias('@common/upload') . DIRECTORY_SEPARATOR . Yii::$app->session->id . DIRECTORY_SEPARATOR;
+        if (!is_dir($directory))
+        {
+            FileHelper::createDirectory($directory);
+        }
+
+        if ($imageFile)
+        {
+            $uid = uniqid(time(), true);
+            $fileName = $uid . '.' . $imageFile->extension;
+            $filePath = $directory . $fileName;
+            if ($imageFile->saveAs($filePath))
+            {
+                $path = '/img/temp/' . Yii::$app->session->id . DIRECTORY_SEPARATOR . $fileName;
+                return Json::encode([
+                            'files' => [
+                                [
+                                    'name' => $fileName,
+                                    'size' => $imageFile->size,
+                                    'url' => $path,
+                                    'thumbnailUrl' => $path,
+                                    'deleteUrl' => 'image-delete?name=' . $fileName,
+                                    'deleteType' => 'POST',
+                                ],
+                            ],
+                ]);
+            }
+        }
+
+        return '';
+    }
+
     public function actionCreate()
     {
         $model = new Page();
@@ -70,16 +110,29 @@ class PageController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
 
+            $imageFile = UploadedFile::getInstance($model, 'photo');
 
+            $directory = Yii::getAlias('@common/upload') . DIRECTORY_SEPARATOR . Yii::$app->session->id . DIRECTORY_SEPARATOR;
             $file = \yii\web\UploadedFile::getInstance($model, 'photo');
-
-            if (!is_null($file))
+            $directory = Yii::getAlias('@common/upload') . DIRECTORY_SEPARATOR . Yii::$app->session->id . DIRECTORY_SEPARATOR;
+            if (!is_dir($directory))
             {
-                if ($fileModel = \mdm\upload\FileModel::saveAs($file, ['uploadPath' => '@common/upload']))
+                FileHelper::createDirectory($directory);
+            }
+
+
+            if ($imageFile)
+            {
+                $uid = uniqid(time(), true);
+                $fileName = $uid . '.' . $imageFile->extension;
+                $filePath = $directory . $fileName;
+                if ($imageFile->saveAs($filePath))
                 {
-                    $model->photo = $fileModel->id;
+                    $path = '/img/temp/' . Yii::$app->session->id . DIRECTORY_SEPARATOR . $fileName;
                 }
             }
+
+
 
             $model->time = time();
 

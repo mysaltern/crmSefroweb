@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\tinymce\TinyMce;
+use yii\helpers\ArrayHelper;
+use dosamigos\fileupload\FileUploadUI;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Page */
@@ -38,7 +40,31 @@ use dosamigos\tinymce\TinyMce;
         ]
     ]);
     ?>
-
+    <?=
+    FileUploadUI::widget([
+        'model' => $model,
+        'attribute' => 'photo',
+        'url' => ['media/upload', 'id' => $model->id],
+        'gallery' => false,
+        'fieldOptions' => [
+            'accept' => 'video/*'
+        ],
+        'clientOptions' => [
+            'maxFileSize' => 2000000
+        ],
+        // ...
+        'clientEvents' => [
+            'fileuploaddone' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+            'fileuploadfail' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+        ],
+    ]);
+    ?>
     <?php
     $action = Yii::$app->controller->action->id;
 
@@ -50,11 +76,16 @@ use dosamigos\tinymce\TinyMce;
         <?= Html::img(['/file', 'id' => $model->photo]) ?>
         <?php
     }
-    ?>
-    <?= $form->field($model, 'photo')->fileInput(); ?>
-
+    ?> 
     <?php
-    $item = array('0' => 'deactive', '1' => 'active');
+    $dataPost = ArrayHelper::map(\common\models\CategoryWriting::find()->where(['type' => 2])->asArray()->all(), 'id', 'name');
+    echo $form->field($model, 'category_writing')
+            ->dropDownList(
+                    $dataPost, ['id' => 'name']
+            )->label('دسته بندی');
+    ?>
+    <?php
+    $item = array('0' => 'غیر فعال', '1' => 'فعال');
     ?>
     <?= $form->field($model, 'active')->dropDownList($item) ?>
 

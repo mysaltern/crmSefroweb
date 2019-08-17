@@ -68,8 +68,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
+            'category.name',
             'desc:html',
-            'publish_date',
+            [
+                'attribute' => 'publish_date',
+                'value' => function($model)
+                {
+                    if ($model->publish_date != null)
+                    {
+                        return \Yii::$app->jdf->jdate($format = 'Y/F/j', $timestamp = $model->publish_date, $none = '', $time_zone = 'Asia/Tehran', $tr_num = 'fa');
+                    }
+                },
+            ],
             [
                 'attribute' => 'active',
                 'value' => function($model)

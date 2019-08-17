@@ -18,6 +18,7 @@ use Yii;
  * @property int $publish_date
  * @property int $date_update
  * @property int $active
+ * @property int $category_id
  * @property int $article
  *
  */
@@ -42,7 +43,7 @@ class News extends \yii\db\ActiveRecord
         return [
             [['title', 'content', 'desc'], 'required'],
             [['content', 'desc'], 'string'],
-            [['views', 'type', 'active', 'date', 'publish_date', 'article', 'date_update'], 'integer'],
+            [['views', 'type', 'active', 'date', 'publish_date', 'category_id', 'article', 'date_update'], 'integer'],
 //            [['date', 'publish_date'], 'safe'],
             [['title', 'photo'], 'string', 'max' => 255],
         ];
@@ -63,6 +64,7 @@ class News extends \yii\db\ActiveRecord
             'date' => 'زمان',
             'desc' => 'متن کامل',
             'type' => 'Type',
+            'category_id' => 'Category ID',
             'publish_date' => 'زمان انتشار',
             'active' => 'وضعیت',
         ];
@@ -93,6 +95,11 @@ class News extends \yii\db\ActiveRecord
         }
         $items = $itemsQuery->asArray()->all();
         return $items;
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(CategoryWriting::className(), ['id' => 'category_id']);
     }
 
 }

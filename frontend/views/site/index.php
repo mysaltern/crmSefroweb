@@ -9,87 +9,62 @@ $this->title = 'My Yii Application';
 
 
 
-<!-- ***** Wellcome Area Start ***** -->
-<section class="wellcome_area clearfix" id="home">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <?php
-            $x = 0;
-            foreach ($slider as $slide)
-            {
-                $x++;
-                if ($x == 1)
-                {
-                    $css = 'active';
-                }
-                else
-                {
-                    $css = '';
-                }
-                ?>
-                <li data-target = "#carouselExampleIndicators" data-slide-to = "<?= $x ?>" class = "<?= $css ?>"></li>
-
-                <?php
-            }
-            ?>
-
-        </ol>
-        <div class="carousel-inner">
-
-            <?php
-            $x = 0;
-            foreach ($slider as $slide)
-            {
-                $x++;
-                $photo = Yii::$app->urlManager->createAbsoluteUrl(['/file', 'id' => $slide['url']]);
-
-                if ($x == 1)
-                {
-                    $css = 'active';
-                }
-                else
-                {
-                    $css = '';
-                }
-                ?>
-
-                <div class="carousel-item <?= $css ?>">
-                    <img class="d-block w-100" src="<?php echo $photo; ?>" alt="<?php echo $slide['title']; ?>">
-                </div>
-                <?php
-            }
-            ?>
-
-        </div>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</section>
-<!-- ***** Wellcome Area End ***** -->
 
 
-<!-- ***** Our Team Area Start ***** -->
-<section class="our-Team-area bg-white section_padding_100_50 clearfix" id="team">
-    <div class="container">
+
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto" style="margin-top: 35% !important;">
         <div class="row">
-            <div class="col-12 text-center">
-                <!-- Heading Text  -->
-                <?php
-                $articleURL = Url::to(['article/index']);
-                ?>
-                <div class="section-heading">
-                    <h2><a href="<?= $articleURL; ?>">مقالات</a></h2>
-                    <div class="line-shape"></div>
-                </div>
+            <div class="col-lg-10 mx-auto">
+                <!--<hr>-->
+                <h1 class="text-uppercase">
+                    <strong>پایگاه شخصی دکتر علیرضا پورابراهیمی
+                    </strong>
+                </h1>
+
+            </div>
+            <!--                    <div class="col-lg-8 mx-auto">
+                                    <p class="text-faded mb-5">
+                                        دکتر علیرضا پورابراهیمی متولد 1347 عضو هیأت علمی و استادیار دانشگاه آزاد اسلامی و دارای دکترای تخصصی مدیریت صنعتی می باشند که از سال 1374 تا کنون به امر تدریس در دانشگاههای کشور اشتغال داشته اند. ایشان در کنار تدریس به امر تحقیق نیز همت گماشته و دارای تألیفات و پژوهش های متعدد علمی بوده و راهنمایی پایان نامه های متعددی را در مقاطع کارشناسی ارشد و دکتری بر عهده داشته اند.
+                                    </p>
+                                    <p class="text-faded mb-5">
+                                        وی مسئولیت های اجرایی مختلفی را نیز در سازمانهای دولتی و غیر دولتی بر عهده داشته و در کارنامه اجرایی خود به ثبت رسانده است.
+                                    </p>
+                                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+                                </div>-->
+        </div>
+    </div>
+</header>
+
+<section class="bg-primary" id="about"
+         style="background-image: url('img/darkblue.png');background-repeat: no-repeat;background-size: cover;background-position: center;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <hr class="light my-4">
+                <p class="text-faded mb-4 rtl" style="font-size: 20px">
+                    دکتر علیرضا پورابراهیمی متولد 1347 عضو هیأت علمی و استادیار دانشگاه آزاد اسلامی و دارای دکترای تخصصی
+                    مدیریت صنعتی می باشند که از سال 1374 تا کنون به امر تدریس در دانشگاههای کشور اشتغال داشته اند. ایشان
+                    در کنار تدریس به امر تحقیق نیز همت گماشته و دارای تألیفات و پژوهش های متعدد علمی بوده و راهنمایی
+                    پایان نامه های متعددی را در مقاطع کارشناسی ارشد و دکتری بر عهده داشته اند.
+                </p>
+                <p class="text-faded mb-4 rtl" style="font-size: 20px">
+                    وی مسئولیت های اجرایی مختلفی را نیز در سازمانهای دولتی و غیر دولتی بر عهده داشته و در کارنامه اجرایی
+                    خود به ثبت رسانده است.
+                </p>
+                <!--<a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
             </div>
         </div>
-        <div class="row">
+    </div>
+</section>
+
+
+<section>
+    <div class="container-fluid rtl">
+        <div class="row justify-content-md-center">
+
+
+
 
             <?php
             foreach ($article as $ar)
@@ -97,158 +72,277 @@ $this->title = 'My Yii Application';
                 $photo = Yii::$app->urlManager->createAbsoluteUrl(['/file', 'id' => $ar['photo']]);
                 $urlDetailsArticle = Url::to(['article/view', 'id' => $ar['id']]);
                 ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="single-team-member">
-                        <div class="member-image">
-                            <img src="<?= $photo; ?>" alt="">
-                            <div class="team-hover-effects">
-                                <div class="team-social-icon">
-                                    <a href="<?= $urlDetailsArticle; ?>"><i class="fa fa-link " aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="member-text">
-                            <h4><?= $ar['title']; ?></h4>
-                            <p><?= $ar['content']; ?></p>
-                        </div>
+
+
+
+                <div class="col-lg-2 text-center main-card-frame main-card-back1">
+                    <div class="RIF mb-2">
+                        <img src="<?= $photo; ?>" alt="" />
                     </div>
+                    <p>
+                        <?= $ar['title']; ?>
+                    </p>
+                    <p><?= $ar['content']; ?></p>
+                    <a href="<?= $urlDetailsArticle; ?>" > ادامه...</a>
                 </div>
+
+
+
+
+
+
+
                 <?php
             }
             ?>
 
 
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 </section>
-<!-- ***** Our Team Area End ***** -->
+
+<!--<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="img/emam-sadegh.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="img/emam-sadegh.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="img/emam-sadegh.jpg" alt="Third slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">قبلی</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">بعدی</span>
+    </a>
+</div>-->
 
 
 
-<!-- ***** Contact Us Area Start ***** -->
-<section class="footer-contact-area section_padding_100 rtl clearfix" id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Heading Text  -->
-                <div class="section-heading">
-                    <h2>مشاوره رایگان</h2>
-                    <div class="line-shape"></div>
-                </div>
-                <div class="footer-text">
-                    <p>شما میتوانید با تماس یا ارسال سوال خود از مشاوره رایگان ما بهرمند شوید</p>
+
+<!--
+        <section id="services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">قابل توجه کاربران و دانشجویان محترم</h2>
+                        <hr class="my-4">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <!-- Form Start-->
-                <div class="contact_from">
-                    <form action="#" method="post">
-                        <!-- Message Input Area Start -->
-                        <div class="contact_input_area">
-                            <div class="row">
-                                <!-- Single Input Area Start -->
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="نام و نام خانوادگی"
-                                               required>
-                                    </div>
-                                </div>
-                                <!-- Single Input Area Start -->
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" name="email" id="email"
-                                               placeholder="ایمیل شما" required>
-                                    </div>
-                                </div>
-                                <!-- Single Input Area Start -->
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <textarea name="message" class="form-control" id="message" cols="30" rows="4"
-                                                  placeholder="سوال خود را در این محل بنویسید" required></textarea>
-                                    </div>
-                                </div>
-                                <!-- Single Input Area Start -->
-                                <div class="col-12">
-                                    <button type="submit" class="btn submit-btn">ارسال</button>
-                                </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box mt-5 mx-auto">
+                            <i class="fas fa-4x fa-gem text-primary mb-3 sr-icon-1"></i>
+                            <h3 class="mb-3">Sturdy Templates</h3>
+                            <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box mt-5 mx-auto">
+                            <i class="fas fa-4x fa-paper-plane text-primary mb-3 sr-icon-2"></i>
+                            <h3 class="mb-3">Ready to Ship</h3>
+                            <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box mt-5 mx-auto">
+                            <i class="fas fa-4x fa-code text-primary mb-3 sr-icon-3"></i>
+                            <h3 class="mb-3">Up to Date</h3>
+                            <p class="text-muted mb-0">We update dependencies to keep things fresh.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box mt-5 mx-auto">
+                            <i class="fas fa-4x fa-heart text-primary mb-3 sr-icon-4"></i>
+                            <h3 class="mb-3">Made with Love</h3>
+                            <p class="text-muted mb-0">You have to make your websites with love these days!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+
+<section class="p-0" id="portfolio">
+    <div class="container-fluid p-0">
+        <div class="row no-gutters popup-gallery">
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="img/portfolio/fullsize/g1.jpg">
+                    <img class="img-fluid" src="img/portfolio/thumbnails/g1.jpg" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <!--                                    <div class="project-category text-faded">
+                                                                    Category
+                                                                </div>-->
+                            <div class="project-name">
+                                جشن فارق التحصیلی اولین سری دانشجویان واحد الکترونیکی
                             </div>
                         </div>
-                        <!-- Message Input Area End -->
-                    </form>
-                </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="img/portfolio/fullsize/g2.jpg">
+                    <img class="img-fluid" src="img/portfolio/thumbnails/g2.jpg" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <!--                                    <div class="project-category text-faded">
+                                                                    Category
+                                                                </div>-->
+                            <div class="project-name">
+                                برنامه تلویزیونی طلوع با موضوع امنیت فضای مجازی
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="img/portfolio/fullsize/g3.jpg">
+                    <img class="img-fluid" src="img/portfolio/thumbnails/g3.jpg" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <!--                                    <div class="project-category text-faded">
+                                                                    Category
+                                                                </div>-->
+                            <div class="project-name">
+                                سخنرانی، شرکت داده ورزی سداد
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="img/portfolio/fullsize/g4.jpg">
+                    <img class="img-fluid" src="img/portfolio/thumbnails/g4.jpg" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <!--                                    <div class="project-category text-faded">
+                                                                    Category
+                                                                </div>-->
+                            <div class="project-name">
+                                رونمایی طرح، شرکت داده ورزی سداد
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="img/portfolio/fullsize/g5.jpg">
+                    <img class="img-fluid" src="img/portfolio/thumbnails/g5.jpg" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <!--                                    <div class="project-category text-faded">
+                                                                    Category
+                                                                </div>-->
+                            <div class="project-name">
+                                باشگاه پژوهشگران جوان
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box" href="img/portfolio/fullsize/g6.jpg">
+                    <img class="img-fluid" src="img/portfolio/thumbnails/g6.jpg" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <!--                                    <div class="project-category text-faded">
+                                                                    Category
+                                                                </div>-->
+                            <div class="project-name">
+                                گفتگوی تلویزیونی در برنامه طلوع
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
 </section>
-<!-- ***** Contact Us Area End ***** -->
 
 
-<!-- ***** Special Area Start ***** -->
-<section class="special-area bg-white section_padding_100 rtl" id="about">
+<section id="services" class="rtl">
     <div class="container">
-
-        <div class="row list">
-            <!-- Single Special Area -->
-            <div class="col-12 col-md-4 list__item w-100">
-                <div class="single-special text-center wow fadeInUp w-100" data-wow-delay="0.6s">
-                    <div class="single-icon">
-                        <i class="ti-location-pin" aria-hidden="true"></i>
-                    </div>
-                    <h4>تماس با ما</h4>
-                    <div class="address-text">
-                        <p><span>آدرس: </span>تهران - خیابان آزادی - در سبز رنگ اول دست چپ</p>
-                    </div>
-                    <div class="phone-text">
-                        <p><span>تلفن تماس: </span>0212345678</p>
-                    </div>
-                    <div class="email-text">
-                        <p><span>ایمیل:</span> info@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Special Area -->
-            <div class="col-12 col-md-4 list__item w-100">
-                <div class="single-special text-center wow fadeInUp w-100" data-wow-delay="0.4s">
-                    <div class="single-icon">
-                        <i class="ti-view-list-alt" aria-hidden="true"></i>
-                    </div>
-                    <h4>خدمات</h4>
-                    <div class="d-flex flex-column">
-                        <a class="dropdown-item" href="umiho.php">یو می هو تراپی</a>
-                        <a class="dropdown-item" href="niddle.php">طب سوزنی</a>
-                        <a class="dropdown-item" href="consultation.php">مشاوره و روانشناسی</a>
-                        <a class="dropdown-item" href="workshop.php">كارگاه هاي شناخت طرحواره</a>
-                    </div>
-
-                </div>
-            </div>
-            <!-- Single Special Area -->
-            <div class="col-12 col-md-4 list__item w-100">
-                <div class="single-special text-center wow fadeInUp w-100" data-wow-delay="0.2s">
-                    <div class="single-icon">
-                        <i class="ti-time" aria-hidden="true"></i>
-                    </div>
-                    <h4>ساعت‌های کاری</h4>
-                    <p>همه روزه از ساعت 9 تا 19</p>
-                    <p>روزهای تعطیل از ساعت 12 تا 18</p>
-                </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">قابل توجه کاربران و دانشجویان محترم</h2>
+                <hr class="my-4">
             </div>
         </div>
     </div>
-
-
-</section>
-<!-- ***** Special Area End ***** -->
-
-
-
-
-<!-- ***** Footer Area Start ***** -->
-<footer class="footer-social-icon text-center clearfix">
-    <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d809.2938973299771!2d71.35321942920047!3d50.77106289876085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e070340c325e3%3A0x358aede3859e2d30!2z2YXYsdqp2LIg2KrZhtiv2LHYs9iq24wg2YfZhdin24w!5e0!3m2!1sen!2s!4v1555148616643!5m2!1sen!2s" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="alert alert-primary text-right" role="alert">
+                    <i class="far fa-check-square"></i> برای ارسال تکالیف درسی خود ابتدا باید در سایت ثبت نام کرده و سپس
+                    از طریق پنل ویژه دانشجویان اقدام کنید .
+                </div>
+                <div class="alert alert-primary text-right" role="alert">
+                    <i class="far fa-check-square"></i> برای ارسال اطلاعات و فایل پایان نامه خود، پس از ثبت نام در سایت،
+                    فرمی را که در پنل ویژه دانشجویان قرار دارد به دقت پر کرده و ارسال نمایید.
+                </div>
+                <div class="alert alert-primary text-right" role="alert">
+                    <i class="far fa-check-square"></i> مطالب درسی مورد نیاز شما در قسمت پنل ویژه دانشجویان و در لینک
+                    "مطالب درسی" قابل دسترس است.
+                </div>
+                <div class="alert alert-primary text-right" role="alert">
+                    <i class="far fa-check-square"></i> کلیه سوالات و مشکلات خود را در کاربری وبسایت، از طریق آدرس
+                    ایمیلی که در قسمت پشتیبانی فنی قرار داده شده است، پی گیری نمایید.
+                </div>
+            </div>
+            <div class="col-lg-2 d-none d-lg-flex icon-bar">
+                <i class="fas fa-graduation-cap fa-4x wow fadeInUp dark-blue" data-wow-duration="1s"
+                   data-wow-delay="0.5s"></i>
+                <i class="fas fa-university fa-4x wow fadeInUp dark-blue" data-wow-duration="1s"
+                   data-wow-delay="1s"></i>
+                <i class="fas fa-user-graduate fa-4x wow fadeInUp dark-blue" data-wow-duration="1s"
+                   data-wow-delay="1.5s"></i>
+            </div>
+        </div>
     </div>
+</section>
 
+<section class="bg-dark text-white">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12 mb-3">
+                <h2 class="mb-4">دانلود مقالات</h2>
+                <?php
+                $upload = Url::to(['document/upload']);
+                ?>
+                <a class="btn btn-light btn-xl sr-button"
+                   href="<?= $upload; ?>">دانلود کنید</a>
+            </div>
 
-
-</footer>
+            <?php
+            $login = Url::to(['user/login']);
+            ?>
+            <div class="col-lg-6 col-xs-12 mb-3">
+                <h2 class="mb-4">پنل ویژه دانشجویان</h2>
+                <a class="btn btn-light btn-xl sr-button"
+                   href="<?= $login; ?>">وارد شوید</a>
+            </div>
+        </div>
+    </div>
+</section>

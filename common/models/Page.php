@@ -14,6 +14,9 @@ use Yii;
  * @property int $active
  * @property string $photo
  * @property int $time
+ * @property int $category_writing
+ *
+ * @property CategoryWriting $categoryWriting
  */
 class Page extends \yii\db\ActiveRecord
 {
@@ -33,9 +36,10 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             [['desc'], 'string'],
-            [['active', 'time'], 'integer'],
+            [['active', 'time', 'category_writing'], 'integer'],
             [['title', 'photo'], 'string', 'max' => 255],
             [['summary'], 'string', 'max' => 512],
+            [['category_writing'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryWriting::className(), 'targetAttribute' => ['category_writing' => 'id']],
         ];
     }
 
@@ -52,7 +56,16 @@ class Page extends \yii\db\ActiveRecord
             'active' => 'وضعیت',
             'photo' => 'عکس',
             'time' => 'زمان',
+            'category_writing' => 'دسته بندی صفحات',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoryWriting()
+    {
+        return $this->hasOne(CategoryWriting::className(), ['id' => 'category_writing']);
     }
 
     /**

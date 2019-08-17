@@ -11,8 +11,19 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'user' => [
-            // following line will restrict access to admin controller from frontend application
-            'as frontend' => 'dektrium\user\filters\FrontendFilter',
+            'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => true,
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'controllerMap' => [
+                'admin' => 'frontend\controllers\user\AdminController',
+                'profile' => 'frontend\controllers\user\ProfileController',
+                'recovery' => 'frontend\controllers\user\RecoveryController',
+                'registration' => 'frontend\controllers\user\RegistrationController',
+                'security' => 'frontend\controllers\user\SecurityController',
+                'settings' => 'frontend\controllers\user\SettingsController',
+            ],
+            'admins' => ['admin']
         ],
     ],
     'components' => [
@@ -39,7 +50,7 @@ return [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             // Disable index.php
-            'showScriptName' => false,
+            'showScriptName' => true,
             // Disable r= routes
             'enablePrettyUrl' => true,
             'rules' => array(

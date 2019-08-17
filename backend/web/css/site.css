@@ -120,9 +120,10 @@ a.desc:after {
 }
 
 
-#trash,#edit
+#trash,#edit, input
 
 {
     
     color: black;
 }
+ 

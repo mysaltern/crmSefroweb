@@ -70,6 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'desc:html',
+            'category.name',
             'publish_date',
             [
                 'attribute' => 'active',

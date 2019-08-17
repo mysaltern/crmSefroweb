@@ -24,6 +24,27 @@ use yii\web\JsExpression;
     <?= $form->field($model, 'lng')->textInput(['maxlength' => true, 'id' => 'us2-lon']) ?>
 
 
+    <?php
+    if (isset($model->lat))
+    {
+        $lat = $model->lat;
+    }
+    else
+    {
+
+        $lat = 35.74593135576459;
+    }
+    if (isset($model->lng))
+    {
+        $lng = $model->lng;
+    }
+    else
+    {
+
+        $lng = 51.37545183563236;
+    }
+    ?>
+
 
     <?php
     echo \pigolab\locationpicker\LocationPickerWidget::widget([
@@ -33,8 +54,8 @@ use yii\web\JsExpression;
         ],
         'clientOptions' => [
             'location' => [
-                'latitude' => 35.74593135576459,
-                'longitude' => 51.37545183563236,
+                'latitude' => $lat,
+                'longitude' => $lng,
             ],
             'radius' => 300,
             'addressFormat' => 'street_number',

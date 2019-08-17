@@ -13,79 +13,96 @@ AppAsset::register($this);
 $css = Url::base(true) . '/css';
 $js = Url::base(true) . '/js';
 $img = Url::base(true) . '/img';
+$vendor = Url::base(true) . '/vendor';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 
+
+
+
+
+
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-
-
-        <meta name="description" content="">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-        <!-- Title -->
-        <title>مرکز تندرستی همای</title>
+        <title>پایگاه شخصی دکتر علیرضا پورابراهیمی</title>
 
-        <!-- Favicon -->
-        <link rel="icon" href="<?= $img; ?>/core-img/favicon.ico">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-              integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!-- Bootstrap core CSS -->
+        <link href="<?= $vendor; ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="vendor/bootstrap/css/bootstrap-rtl.css" rel="stylesheet" type="text/css"/>-->
 
-        <!-- Core Stylesheet -->
-        <link href="<?= $css; ?>/style.css" rel="stylesheet">
+        <!-- Custom fonts for this template -->
+        <link href="<?= $vendor; ?>/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
-        <!-- Responsive CSS -->
-        <link href="<?= $css; ?>/responsive.css" rel="stylesheet">
+        <!-- Plugin CSS -->
+        <link href="<?= $vendor; ?>/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="<?= $css; ?>/creative.css" rel="stylesheet">
+        <link href="<?= $css; ?>/wow.css" rel="stylesheet" type="text/css"/>
+        <link href="<?= $css; ?>/mrh.css" rel="stylesheet" type="text/css"/>
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-
     </head>
-    <body>
-
-        <header class="header_area animated">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-
-
-                    <!-- Menu Area Start -->
-                    <div class="col-12 col-lg-12">
-                        <div class="menu_area">
-                            <nav class="navbar navbar-expand-lg navbar-light">
-                                <!-- Logo -->
-                                <a class="navbar-brand" href="#">
-                                    <img src="img/logo.png" alt="">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar"
-                                        aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span
-                                        class="navbar-toggler-icon"></span></button>
-                                <!-- Menu Area -->
-                                <div class="collapse navbar-collapse rtl" id="ca-navbar">
 
 
 
-                                    <?php
-                                    echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right', 'id' => 'nav'],
-                                        'items' => Menu::NavbarRight(5)  // argument is id of menu
-                                    ]);
-                                    ?>
+    <?php
+    $login = Url::to(['user/login']);
+    ?>
+
+    <body id="page-top">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="<?= $login; ?>">ورود</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="col-12 col-lg-12">
+                    <div class="menu_area">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <!-- Logo -->
+                            <a class="navbar-brand" href="<?= $login; ?>">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ca-navbar"
+                                    aria-controls="ca-navbar" aria-expanded="false" aria-label="Toggle navigation"><span
+                                    class="navbar-toggler-icon"></span></button>
+                            <!-- Menu Area -->
 
 
-                                </div>
-                            </nav>
-                        </div>
+                            <div class="collapse navbar-collapse rtl" id="ca-navbar">
+
+
+
+                                <?php
+                                echo Nav::widget(['options' => ['class' => 'navbar-nav navbar-right', 'id' => 'nav'],
+                                    'items' => Menu::NavbarRight(5)  // argument is id of menu
+                                ]);
+                                ?>
+
+
+                            </div>
+
+                        </nav>
                     </div>
-
-                    <!-- ***** Header Area End ***** -->
-
                 </div>
             </div>
+        </nav>
 
-        </header>
+
+
+
 
 
 
@@ -93,57 +110,58 @@ $img = Url::base(true) . '/img';
 
 
 
-        <div class="h-100">
-            <!-- footer logo -->
-            <div class="footer-text">
-                <h2>HOMAAY</h2>
-            </div>
-            <!-- social icon-->
-            <div class="footer-social-icon rtl">
-                <a href="#"><i class="fa fa-telegram" aria-hidden="true"></i></a>
-                <a href="#"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-            </div>
-            <div class="footer-menu rtl">
-                <nav>
-                    <ul>
-                        <li><a href="#">درباره ما</a></li>
-                        <li><a href="#">قوانین و مقررات</a></li>
-                        <li><a href="#">حریم خصوصی</a></li>
-                        <li><a href="#">تماس با ما</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <!-- Foooter Text-->
-            <div class="copyright-text clearfix">
-                <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** -->
-                <p>تمامی حقوق این وب سایت برای مركز تندرستی همای محفوظ است </p>
-                <p> طراحی و پیاده سازی توسط <a href="#" target="_blank">صباسامانه</a></p>
-                </br>
-            </div>
-        </div>
 
-        <!-- ***** Footer Area Start ***** -->
 
-        <!-- Jquery-2.2.4 JS -->
-        <script src="<?= $js; ?>/jquery-2.2.4.min.js"></script>
-        <!-- Popper js -->
-        <script src="<?= $js; ?>/popper.min.js"></script>
-        <!-- Bootstrap-4 Beta JS -->
-        <script src="<?= $js; ?>/bootstrap.min.js"></script>
-        <!-- All Plugins JS -->
-        <script src="<?= $js; ?>/plugins.js"></script>
-        <!-- Slick Slider Js-->
-        <script src="<?= $js; ?>/slick.min.js"></script>
-        <!-- Footer Reveal JS -->
-        <script src="<?= $js; ?>/footer-reveal.min.js"></script>
-        <!-- Active JS -->
-        <script src="<?= $js; ?>/active.js"></script>
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h2 class="section-heading">کاربر گرامی؛</h2>
+                        <hr class="my-4">
+                        <p class="mb-5">لطفاً در صورت وجود هرگونه مشکل فنی در کاربری این سایت، با ایمیل زیر مکاتبه و یا با شماره اعلام شده تماس حاصل نمایید.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 ml-auto text-center">
+                        <i class="fas fa-phone fa-3x mb-3 sr-contact-1"></i>
+                        <p>(خورش) 09126359688</p>
+                    </div>
+                    <div class="col-lg-4 mr-auto text-center">
+                        <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
+                        <p>
+                            <a href="mailto:your-email@your-domain.com">support@apebrahimi.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- Bootstrap core JavaScript -->
+        <script src="<?= $vendor; ?>/jquery/jquery.min.js"></script>
+        <script src="<?= $vendor; ?>/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="<?= $vendor; ?>/jquery-easing/jquery.easing.min.js"></script>
+        <script src="<?= $vendor; ?>/scrollreveal/scrollreveal.min.js"></script>
+        <script src="<?= $vendor; ?>/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="<?= $js; ?>/creative.min.js"></script>
+        <script src="<?= $js; ?>/wow.min.js" type="text/javascript"></script>
+        <script src="<?= $js; ?>/wow.min.js"></script>
+        <script>
+            new WOW().init();
+        </script>
     </body>
 
 </html>
+
+
+
+
+
+
+
 
 
 

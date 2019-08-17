@@ -90,26 +90,28 @@ if (!isset($path))
 
 
     <?= $form->field($model, 'summary')->textInput() ?>
+    <?= $form->field($model, 'description')->textarea() ?>
 
-    <?=
-    $form->field($model, 'description')->widget(TinyMce::className(), [
-        'options' => ['rows' => 6],
-        'language' => 'fa',
-        'clientOptions' => [
-//            'theme' => 'modern',
-//            'skin' => 'lightgray-gradient', //charcoal, tundora, lightgray-gradient, lightgray
-            'image_advtab' => true,
-            'plugins' => [
-                "advlist autolink lists link image charmap print preview hr anchor pagebreak placeholder",
-                "searchreplace wordcount visualblocks visualchars code fullscreen",
-                "insertdatetime media nonbreaking save table contextmenu directionality",
-                "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc noneditable",
-            ],
-            'toolbar1' => "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-            'toolbar2' => "print preview media | forecolor backcolor emoticons | codesample",
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        ]
-    ]);
+    <?php
+//    echo
+//    $form->field($model, 'description')->widget(TinyMce::className(), [
+//        'options' => ['rows' => 6],
+//        'language' => 'fa',
+//        'clientOptions' => [
+////            'theme' => 'modern',
+////            'skin' => 'lightgray-gradient', //charcoal, tundora, lightgray-gradient, lightgray
+//            'image_advtab' => true,
+//            'plugins' => [
+//                "advlist autolink lists link image charmap print preview hr anchor pagebreak placeholder",
+//                "searchreplace wordcount visualblocks visualchars code fullscreen",
+//                "insertdatetime media nonbreaking save table contextmenu directionality",
+//                "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc noneditable",
+//            ],
+//            'toolbar1' => "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+//            'toolbar2' => "print preview media | forecolor backcolor emoticons | codesample",
+//            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+//        ]
+//    ]);
     ?>
     <?php
     if (isset($model->active))

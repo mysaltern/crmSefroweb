@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use faravaghi\jalaliDatePicker\jalaliDatePicker;
 use dosamigos\tinymce\TinyMce;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
@@ -95,7 +96,14 @@ use dosamigos\tinymce\TinyMce;
             ])->label('تاریخ انتشار');
     ?>
     <?php
-    $item = array('0' => 'deactive', '1' => 'active');
+    $item = array('0' => 'غیر فعال', '1' => 'فعال');
+    ?>
+    <?php
+    $dataPost = ArrayHelper::map(\common\models\CategoryWriting::find()->where(['type' => 2])->asArray()->all(), 'id', 'name');
+    echo $form->field($model, 'category_id')
+            ->dropDownList(
+                    $dataPost, ['id' => 'name']
+            )->label('دسته بندی');
     ?>
     <?= $form->field($model, 'active')->dropDownList($item) ?>
 
