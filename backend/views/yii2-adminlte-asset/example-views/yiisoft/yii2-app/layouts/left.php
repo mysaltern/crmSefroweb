@@ -72,9 +72,11 @@
 
         $uni = \yii\helpers\Url::to(['/uni/index']);
         $major = \yii\helpers\Url::to(['/major/index']);
+        $lesson = \yii\helpers\Url::to(['/lesson/index']);
         $grade = \yii\helpers\Url::to(['/grade/index']);
         $professor = \yii\helpers\Url::to(['/professor/index']);
         $thesis = \yii\helpers\Url::to(['/thesis/index']);
+        $reference = \yii\helpers\Url::to(['/reference/index']);
         ?>
         <?=
         dmstr\widgets\Menu::widget(
@@ -150,6 +152,8 @@
                             'url' => '#',
                             'items' => [
                                 ['label' => ' دانشگاه', 'icon' => 'fas fa-cart-arrow-down', 'url' => $uni],
+                                ['label' => ' درس', 'icon' => 'fas fa-cart-arrow-down', 'url' => $lesson],
+                                ['label' => ' منابع درسی', 'icon' => 'fas fa-cart-arrow-down', 'url' => $reference],
                                 ['label' => 'مقطع تحصیلی', 'icon' => 'fas fa-cart-arrow-down', 'url' => $grade],
                                 ['label' => 'رشته تحصیلی', 'icon' => 'fas fa-cart-arrow-down', 'url' => $major],
                                 ['label' => 'استاد', 'icon' => 'fas fa-cart-arrow-down', 'url' => $professor],
