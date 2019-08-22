@@ -139,10 +139,13 @@ class RegistrationController extends Controller
             if ($check == false)
             {
                 \Yii::$app->session->setFlash(
-                        'success', \Yii::t(
-                                'user', 'Awesome, almost there. Now you need to click the confirmation link sent to your new email address'
-                        )
+                        'success', "کد ملی صحیح نیست"
                 );
+                Yii::$app->session->setFlash('faild', "کد ملی صحیح نیست");
+                return $this->render('@frontend/views/users/registration/register', [
+                            'model' => $model,
+                            'module' => $this->module,
+                ]);
             }
         }
         $this->trigger(self::EVENT_BEFORE_REGISTER, $event);
@@ -159,7 +162,7 @@ class RegistrationController extends Controller
             ]);
         }
 
-        return $this->render('register', [
+        return $this->render('@frontend/views/users/registration/register', [
                     'model' => $model,
                     'module' => $this->module,
         ]);
@@ -272,7 +275,7 @@ class RegistrationController extends Controller
             ]);
         }
 
-        return $this->render('resend', [
+        return $this->render('@frontend/views/users/registration/resend', [
                     'model' => $model,
         ]);
     }

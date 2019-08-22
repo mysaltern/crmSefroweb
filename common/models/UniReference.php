@@ -19,6 +19,7 @@ use Yii;
  */
 class UniReference extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -35,6 +36,7 @@ class UniReference extends \yii\db\ActiveRecord
         return [
             [['lesson_id', 'major_id', 'active'], 'integer'],
             [['subject', 'url'], 'string', 'max' => 255],
+            [['url'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf , rar , zip'],
             [['lesson_id'], 'exist', 'skipOnError' => true, 'targetClass' => UniLesson::className(), 'targetAttribute' => ['lesson_id' => 'id']],
             [['major_id'], 'exist', 'skipOnError' => true, 'targetClass' => UniMajor::className(), 'targetAttribute' => ['major_id' => 'id']],
         ];
@@ -47,11 +49,11 @@ class UniReference extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'subject' => 'Subject',
-            'lesson_id' => 'Lesson ID',
-            'major_id' => 'Major ID',
-            'url' => 'Url',
-            'active' => 'Active',
+            'subject' => 'نام',
+            'lesson_id' => 'نام درس',
+            'major_id' => 'نام رشته',
+            'url' => 'آدرس',
+            'active' => 'وضعیت',
         ];
     }
 
@@ -79,4 +81,5 @@ class UniReference extends \yii\db\ActiveRecord
     {
         return new UniReferenceQuery(get_called_class());
     }
+
 }

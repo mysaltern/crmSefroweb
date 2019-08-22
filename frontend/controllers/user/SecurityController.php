@@ -181,7 +181,7 @@ class SecurityController extends Controller
             return $this->goBack();
         }
 
-        return $this->render('login', [
+        return $this->render('@frontend/views/users/security/login', [
                     'model' => $model,
                     'module' => $this->module,
         ]);

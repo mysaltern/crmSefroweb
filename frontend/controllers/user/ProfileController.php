@@ -25,6 +25,7 @@ use yii\web\NotFoundHttpException;
  */
 class ProfileController extends Controller
 {
+
     /** @var Finder */
     protected $finder;
 
@@ -76,12 +77,14 @@ class ProfileController extends Controller
     {
         $profile = $this->finder->findProfileById($id);
 
-        if ($profile === null) {
+        if ($profile === null)
+        {
             throw new NotFoundHttpException();
         }
 
-        return $this->render('show', [
-            'profile' => $profile,
+        return $this->render('@frontend/views/users/profile/show', [
+                    'profile' => $profile,
         ]);
     }
+
 }

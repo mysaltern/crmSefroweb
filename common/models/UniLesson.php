@@ -14,6 +14,7 @@ use Yii;
  */
 class UniLesson extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +40,7 @@ class UniLesson extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'نام درس',
         ];
     }
 
@@ -59,4 +60,5 @@ class UniLesson extends \yii\db\ActiveRecord
     {
         return new UniLessonQuery(get_called_class());
     }
+
 }
