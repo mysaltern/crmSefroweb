@@ -10,6 +10,30 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log', 'logvisitor'],
     'modules' => [
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => true,
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'controllerMap' => [
+                'admin' => 'backend\controllers\user\AdminController',
+                'profile' => 'backend\controllers\user\ProfileController',
+                'recovery' => 'backend\controllers\user\RecoveryController',
+                'registration' => 'backend\controllers\user\RegistrationController',
+                'security' => 'backend\controllers\user\SecurityController',
+                'settings' => 'backend\controllers\user\SettingsController',
+            ],
+            'admins' => ['admin']
+        ],
+        'session' => [
+            'name' => 'PHPBACKSESSID',
+            'savePath' => sys_get_temp_dir(),
+        ],
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'cookieValidationKey' => '[DIFFERENT UNIQUE KEY]',
+            'csrfParam' => '_backendCSRF',
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],

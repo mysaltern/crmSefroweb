@@ -25,6 +25,15 @@ return [
             ],
             'admins' => ['admin']
         ],
+        'session' => [
+            'name' => 'PHPFRONTSESSID',
+            'savePath' => sys_get_temp_dir(),
+        ],
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'cookieValidationKey' => '[RANDOM KEY HERE]',
+            'csrfParam' => '_frontendCSRF',
+        ],
     ],
     'components' => [
         'frontend' => [

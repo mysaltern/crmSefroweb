@@ -77,6 +77,7 @@
         $professor = \yii\helpers\Url::to(['/professor/index']);
         $thesis = \yii\helpers\Url::to(['/thesis/index']);
         $reference = \yii\helpers\Url::to(['/reference/index']);
+        $video = \yii\helpers\Url::to(['/videos/index']);
         ?>
         <?=
         dmstr\widgets\Menu::widget(
@@ -101,6 +102,7 @@
                                 ['label' => 'نظرات', 'icon' => 'far fa-comments', 'url' => $comment],
                                 ['label' => 'اسلایدر', 'icon' => 'fas fa-cart-arrow-down', 'url' => $slider],
                                 ['label' => 'آپلود سنتر', 'icon' => 'fas fa-file-upload', 'url' => $filemanager],
+                                ['label' => 'آپلود فیلم', 'icon' => 'fas fa-file-upload', 'url' => $video],
 //                                ['label' => 'گالری', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['/menu'],],
                             ],
                         ],
